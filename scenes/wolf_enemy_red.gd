@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+
 # Player object
 @onready var player = $"../../Player"
 # Enemy object
@@ -7,11 +8,10 @@ extends CharacterBody2D
 # Enemy attackBox
 @onready var attack_box = $Hitbox/AttackBox
 
-
 # Enemy stats
-const SPEED = 250.0
+const SPEED = 350.0
 const JUMP_VELOCITY = -400.0
-const ATTACK_DAMAGE = 10
+const ATTACK_DAMAGE = 20
 var hitpoints = 100
 const ATTACK_RANGE = 85
 const IDLE_TIME = 2

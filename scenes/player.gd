@@ -160,3 +160,4 @@ func _on_animated_sprite_2d_animation_finished():
 func _on_hurtbox_area_entered(area):
 	var enemy = area.get_parent()
 	take_damage(enemy.ATTACK_DAMAGE)
+	print(hitpoints)

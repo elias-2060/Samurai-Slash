@@ -7,11 +7,10 @@ extends CharacterBody2D
 # Enemy attackBox
 @onready var attack_box = $Hitbox/AttackBox
 
-
 # Enemy stats
-const SPEED = 250.0
+const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
-const ATTACK_DAMAGE = 10
+const ATTACK_DAMAGE = 15
 var hitpoints = 100
 const ATTACK_RANGE = 85
 const IDLE_TIME = 2
@@ -93,7 +92,7 @@ func _on_animated_sprite_2d_animation_finished():
 		state = EnemyState.IDLE
 	elif enemy.animation == "dying":
 		state = EnemyState.DEAD
-
+		
 func _on_hurtbox_area_entered(area):
 	var entity = area.get_parent()
 	if entity.comboCount == 1:
