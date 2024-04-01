@@ -15,12 +15,14 @@ const ATTACK_DAMAGE = 20
 var hitpoints = 100
 const ATTACK_RANGE = 85
 const IDLE_TIME = 2
+const ATTACKTIME = 0.4
 
 # Enemy states
 enum EnemyState { IDLE, CHASING, ATTACKING, HURT, DYING, DEAD }
 var state = EnemyState.CHASING
 var prevState
 var idle_timer = 0.0
+var attack_timer = 0.0
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -50,12 +52,21 @@ func _physics_process(delta):
 			chase_player()
 		EnemyState.ATTACKING:
 			attack_player()
+			attack_timer += delta
+			if attack_timer >= ATTACKTIME:
+				attack_timer = 0.0
+				attack_box.disabled = false
+				state = EnemyState.IDLE
 		EnemyState.HURT:
 			attack_box.disabled = true
 			enemy.play("hurt")
 		EnemyState.DYING:
 			attack_box.disabled = true
 			enemy.play("dying")
+			
+	# Add the gravity
+	if not is_on_floor():
+		velocity.y += gravity * delta
 
 	# Handle movement
 	if state == EnemyState.CHASING:  # Check if the enemy is chasing the player
@@ -82,15 +93,13 @@ func chase_player():
 func attack_player():
 	# Play attack animation
 	enemy.play("attack")
-	# Activate the attack hitbox
-	attack_box.disabled = false
 
 func _on_animated_sprite_2d_animation_finished():
 	if enemy.animation == "hurt":
-		state = prevState
-	elif enemy.animation == "attack":
-		attack_box.disabled = true
-		state = EnemyState.IDLE
+		if (prevState != 3):
+			state = prevState
+		else:
+			state = EnemyState.CHASING
 	elif enemy.animation == "dying":
 		state = EnemyState.DEAD
 

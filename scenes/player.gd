@@ -7,7 +7,7 @@ const ATTACK_DAMAGE = 20
 const ATTACK_DAMAGE2 = 25
 const ATTACK_DAMAGE3 = 30
 const COMBO_TIME_LIMIT = 0.5
-var hitpoints = 100
+var hitpoints = 1000
 
 # Player states
 var isAttacking = false
@@ -22,9 +22,6 @@ var isDead = false
 var comboCount = 0
 var comboResetTimer = 0
 
-# Double Jump
-var jumpCount = 0
-const MAX_JUMP_COUNT = 1 # Maximum number of jumps allowed (including the initial jump)
 
 # Player object
 @onready var player = $AnimatedSprite2D
@@ -88,11 +85,7 @@ func _physics_process(delta):
 		isRunning = false
 	
 	# Handle jump.
-	if Input.is_action_just_pressed("jump") and (is_on_floor() or jumpCount < MAX_JUMP_COUNT):
-		if is_on_floor():
-			jumpCount = 0
-		else:
-			jumpCount += 1
+	if Input.is_action_just_pressed("jump") and is_on_floor():
 		isJumping = true
 		velocity.y = JUMP_VELOCITY
 	# Handle attack
@@ -104,14 +97,13 @@ func _physics_process(delta):
 			if comboCount > 3:
 				comboCount = 1 # Reset combo if exceeds max combo count
 		comboResetTimer = COMBO_TIME_LIMIT
-
 		isAttacking = true
 
 	# Update combo reset timer
 	if comboResetTimer > 0:
 		comboResetTimer -= delta
 		if comboResetTimer <= 0:
-			comboCount = 0
+			comboCount = 1
 			comboResetTimer = 0
 
 	# Get the input direction and handle the movement/deceleration.
@@ -160,4 +152,3 @@ func _on_animated_sprite_2d_animation_finished():
 func _on_hurtbox_area_entered(area):
 	var enemy = area.get_parent()
 	take_damage(enemy.ATTACK_DAMAGE)
-	print(hitpoints)

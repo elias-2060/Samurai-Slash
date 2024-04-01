@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b0cnhulxn16q3"]
+[gd_scene load_steps=15 format=3 uid="uid://b0cnhulxn16q3"]
 
 [ext_resource type="Texture2D" uid="uid://wupesv7pu3cb" path="res://assets/background.jpg" id="1_o3y2x"]
 [ext_resource type="Texture2D" uid="uid://d27kwxehngmq6" path="res://assets/tileset.png" id="2_6y78u"]
@@ -7,6 +7,11 @@
 [ext_resource type="Script" path="res://GameManager.gd" id="5_5n3db"]
 [ext_resource type="PackedScene" uid="uid://hw1gugln3lr1" path="res://scenes/wolf_enemy_red.tscn" id="6_j3a0h"]
 [ext_resource type="PackedScene" uid="uid://cm3o4oisdwve" path="res://scenes/wolf_enemy_white.tscn" id="6_q6ueb"]
+[ext_resource type="PackedScene" uid="uid://d4h4eb0xht3rb" path="res://scenes/skeleton_warrior.tscn" id="7_6w1cm"]
+[ext_resource type="PackedScene" uid="uid://colaw4bkehk6s" path="res://scenes/skeleton_spear.tscn" id="8_axxkt"]
+[ext_resource type="PackedScene" uid="uid://bod85rxwuwh41" path="res://scenes/knight_white.tscn" id="9_vt2yw"]
+[ext_resource type="PackedScene" uid="uid://diddg26ggv8fg" path="res://scenes/knight_red.tscn" id="10_2ll8a"]
+[ext_resource type="PackedScene" uid="uid://bnxc7jp4ce0uk" path="res://scenes/knight_pink.tscn" id="11_qc6se"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8njtk"]
 texture = ExtResource("2_6y78u")
@@ -2767,17 +2772,42 @@ collision_mask = 4
 [node name="Enemy\'s" type="Node" parent="."]
 
 [node name="WolfEnemy" parent="Enemy\'s" instance=ExtResource("4_q6oco")]
-position = Vector2(1300, 502)
+position = Vector2(1765, 496)
 collision_layer = 2
 collision_mask = 4
 
 [node name="WolfEnemyWhite" parent="Enemy\'s" instance=ExtResource("6_q6ueb")]
-position = Vector2(797, 504)
+position = Vector2(304, 502)
 collision_layer = 2
 collision_mask = 4
 
 [node name="WolfEnemyRed" parent="Enemy\'s" instance=ExtResource("6_j3a0h")]
-position = Vector2(575, 505)
+position = Vector2(1472, 503)
+collision_layer = 2
+collision_mask = 4
+
+[node name="SkeletonWarrior" parent="Enemy\'s" instance=ExtResource("7_6w1cm")]
+position = Vector2(2101, 522)
+collision_layer = 2
+collision_mask = 4
+
+[node name="SkeletonSpear" parent="Enemy\'s" instance=ExtResource("8_axxkt")]
+position = Vector2(1270, 520)
+collision_layer = 2
+collision_mask = 4
+
+[node name="KnightWhite" parent="Enemy\'s" instance=ExtResource("9_vt2yw")]
+position = Vector2(2313, 527)
+collision_layer = 2
+collision_mask = 4
+
+[node name="KnightRed" parent="Enemy\'s" instance=ExtResource("10_2ll8a")]
+position = Vector2(530, 499)
+collision_layer = 2
+collision_mask = 4
+
+[node name="KnightPink" parent="Enemy\'s" instance=ExtResource("11_qc6se")]
+position = Vector2(733, 508)
 collision_layer = 2
 collision_mask = 4
 
