@@ -25,6 +25,8 @@ var comboResetTimer = 0
 
 # Player object
 @onready var player = $AnimatedSprite2D
+# Camera object
+@onready var camera_2d = $Camera2D
 
 # Player sword hitboxs
 @onready var attack_1_hitbox = $Hitbox/Attack1Hitbox
@@ -36,8 +38,10 @@ var attackAnimationFinished = true
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
+
 # When player gets hit take damage.
 func take_damage(attack_damage):
+	print("hitt2")
 	isHurt = true
 	isIdle = false
 	hitpoints -= attack_damage
@@ -52,6 +56,8 @@ func _physics_process(delta):
 	# Animations
 	if isDying:
 		player.play("dying")
+	elif isHurt:
+		player.play("hurt")
 	elif isAttacking:
 		if comboCount == 1:
 			attack_1_hitbox.disabled = false
@@ -65,8 +71,6 @@ func _physics_process(delta):
 		player.play("jumping")
 	elif isRunning:
 		player.play("running")
-	elif isHurt:
-		player.play("hurt")
 	elif isIdle:
 		player.play("idle")
 

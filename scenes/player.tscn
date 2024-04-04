@@ -281,7 +281,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"hurt",
-"speed": 10.0
+"speed": 30.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -369,7 +369,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b00wh"]
-size = Vector2(50, 86.5)
+size = Vector2(33, 86.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xawss"]
 size = Vector2(32, 7)
@@ -381,7 +381,7 @@ size = Vector2(36.8096, 9.92278)
 size = Vector2(17.2047, 6.39668)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cr5gk"]
-size = Vector2(33, 86.5)
+size = Vector2(32, 86.25)
 
 [node name="Player" type="CharacterBody2D"]
 position = Vector2(515, 481)
@@ -393,19 +393,18 @@ position = Vector2(2.28286e-05, -1.90735e-05)
 scale = Vector2(1.055, 1.259)
 sprite_frames = SubResource("SpriteFrames_ssqu6")
 animation = &"idle"
-frame = 5
-frame_progress = 1.0
 
 [node name="worldCollision" type="CollisionShape2D" parent="."]
 visible = false
 light_mask = 0
-position = Vector2(-1, 23)
+position = Vector2(0.5, 23)
 shape = SubResource("RectangleShape2D_b00wh")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, 3.8147e-06)
-limit_left = 30
-limit_right = 2430
+scale = Vector2(1e-05, 1e-05)
+limit_left = -928
+limit_right = 2945
 limit_bottom = 650
 
 [node name="Hitbox" type="Area2D" parent="."]
@@ -437,7 +436,7 @@ visible = false
 collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
-position = Vector2(2.5, 23)
+position = Vector2(0, 22.875)
 shape = SubResource("RectangleShape2D_cr5gk")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
