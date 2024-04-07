@@ -41,7 +41,6 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 # When player gets hit take damage.
 func take_damage(attack_damage):
-	print("hitt2")
 	isHurt = true
 	isIdle = false
 	hitpoints -= attack_damage

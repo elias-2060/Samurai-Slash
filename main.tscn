@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://b0cnhulxn16q3"]
+[gd_scene load_steps=23 format=3 uid="uid://b0cnhulxn16q3"]
 
 [ext_resource type="Texture2D" uid="uid://wupesv7pu3cb" path="res://assets/background.jpg" id="1_o3y2x"]
 [ext_resource type="Texture2D" uid="uid://d27kwxehngmq6" path="res://assets/tileset.png" id="2_6y78u"]
@@ -13,7 +13,13 @@
 [ext_resource type="PackedScene" uid="uid://diddg26ggv8fg" path="res://scenes/knight_red.tscn" id="10_2ll8a"]
 [ext_resource type="PackedScene" uid="uid://bnxc7jp4ce0uk" path="res://scenes/knight_pink.tscn" id="11_qc6se"]
 [ext_resource type="PackedScene" uid="uid://qeovi53v5jvc" path="res://scenes/skeleton_archer.tscn" id="12_86na3"]
+[ext_resource type="PackedScene" uid="uid://bm46a8cxi8l3j" path="res://scenes/fire_wizard.tscn" id="13_krdax"]
 [ext_resource type="PackedScene" uid="uid://bp444q8j32rcv" path="res://scenes/arrow.tscn" id="13_s3i7g"]
+[ext_resource type="PackedScene" uid="uid://c36a6kscmv5wb" path="res://scenes/lightning_mage.tscn" id="14_7imqw"]
+[ext_resource type="PackedScene" uid="uid://c8iwg0fg6ge3f" path="res://scenes/fireball.tscn" id="15_7uwa6"]
+[ext_resource type="PackedScene" uid="uid://d1haqj8l8v4j0" path="res://scenes/dark_magican.tscn" id="15_qqpld"]
+[ext_resource type="PackedScene" uid="uid://cve70kc46milg" path="res://scenes/lightningball.tscn" id="17_r6ite"]
+[ext_resource type="PackedScene" uid="uid://kxah6bceaqoo" path="res://scenes/magicsphere.tscn" id="19_plg7g"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8njtk"]
 texture = ExtResource("2_6y78u")
@@ -2809,12 +2815,27 @@ collision_layer = 2
 collision_mask = 4
 
 [node name="KnightPink" parent="Enemy\'s" instance=ExtResource("11_qc6se")]
-position = Vector2(-1080, 137)
+position = Vector2(-1067, 120)
 collision_layer = 2
 collision_mask = 4
 
 [node name="SkeletonArcher" parent="Enemy\'s" instance=ExtResource("12_86na3")]
-position = Vector2(296, 527)
+position = Vector2(-1039, 270)
+collision_layer = 2
+collision_mask = 4
+
+[node name="FireWizard" parent="Enemy\'s" instance=ExtResource("13_krdax")]
+position = Vector2(3105, -65)
+collision_layer = 2
+collision_mask = 4
+
+[node name="LightningMage" parent="Enemy\'s" instance=ExtResource("14_7imqw")]
+position = Vector2(-1213, 526)
+collision_layer = 2
+collision_mask = 4
+
+[node name="DarkMagican" parent="Enemy\'s" instance=ExtResource("15_qqpld")]
+position = Vector2(-1056, 512)
 collision_layer = 2
 collision_mask = 4
 
@@ -2822,6 +2843,19 @@ collision_mask = 4
 
 [node name="Arrow" parent="EnemyBullets" instance=ExtResource("13_s3i7g")]
 position = Vector2(3070, 636)
+
+[node name="Fireball" parent="EnemyBullets" instance=ExtResource("15_7uwa6")]
+position = Vector2(3078, 769)
+collision_layer = 16
+collision_mask = 5
+
+[node name="Lightningball" parent="EnemyBullets" instance=ExtResource("17_r6ite")]
+position = Vector2(3235, 633)
+
+[node name="Magicsphere" parent="EnemyBullets" instance=ExtResource("19_plg7g")]
+position = Vector2(3245, 490)
+collision_layer = 16
+collision_mask = 5
 
 [node name="GameManager" type="Node" parent="."]
 script = ExtResource("5_5n3db")

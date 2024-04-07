@@ -1,0 +1,96 @@
+[gd_scene load_steps=14 format=3 uid="uid://cve70kc46milg"]
+
+[ext_resource type="Script" path="res://scenes/lightningball.gd" id="1_lixvq"]
+[ext_resource type="Texture2D" uid="uid://4bn4c3w1w44l" path="res://assets/Lightning Mage/Charge.png" id="1_wrv8i"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ro7yy"]
+atlas = ExtResource("1_wrv8i")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_up0p3"]
+atlas = ExtResource("1_wrv8i")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y3q0m"]
+atlas = ExtResource("1_wrv8i")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c34kv"]
+atlas = ExtResource("1_wrv8i")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cvqdd"]
+atlas = ExtResource("1_wrv8i")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5w31v"]
+atlas = ExtResource("1_wrv8i")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ig0gq"]
+atlas = ExtResource("1_wrv8i")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qmc0p"]
+atlas = ExtResource("1_wrv8i")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sbp5c"]
+atlas = ExtResource("1_wrv8i")
+region = Rect2(512, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ecsri"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ro7yy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_up0p3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y3q0m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c34kv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cvqdd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5w31v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ig0gq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qmc0p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sbp5c")
+}],
+"loop": false,
+"name": &"lightningball",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qrrd3"]
+radius = 12.51
+
+[node name="Lightningball" type="CharacterBody2D"]
+position = Vector2(497, 209)
+collision_layer = 16
+collision_mask = 5
+script = ExtResource("1_lixvq")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(1.234, 1.234)
+sprite_frames = SubResource("SpriteFrames_ecsri")
+animation = &"lightningball"
+frame = 8
+frame_progress = 1.0
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(-0.5, -1.5)
+shape = SubResource("CircleShape2D_qrrd3")

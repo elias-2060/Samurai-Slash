@@ -345,7 +345,7 @@ script = ExtResource("1_q1tro")
 position = Vector2(0, -2.56249)
 scale = Vector2(1.25, 1.31833)
 sprite_frames = SubResource("SpriteFrames_0l4r7")
-animation = &"idle"
+animation = &"attack 2"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
