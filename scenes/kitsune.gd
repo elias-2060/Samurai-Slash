@@ -7,7 +7,7 @@ extends CharacterBody2D
 # Enemy hitbox object
 @onready var attack_box = $Hitbox/AttackBox
 # Enemy bullet object
-const magicsphereObject = preload("res://scenes/magicsphere.tscn")
+const firesphereObject = preload("res://scenes/firesphere.tscn")
 
 
 # Enemy stats
@@ -15,10 +15,10 @@ const SPEED = 200.0
 const JUMP_VELOCITY = -400.0
 var hitpoints = 100
 const ATTACK_RANGE = 400
-const ATTACK_RANGE2 = 50
+const ATTACK_RANGE2 = 70
 const IDLE_TIME = 1.5
-const HEIGHT = -10
-const ATTACKTIME = 0.8
+const HEIGHT = 2
+const ATTACKTIME = 0.5
 const ATTACK_DAMAGE = 40
 
 # Enemy states
@@ -95,7 +95,7 @@ func chase_player():
 	var distance_to_player = global_position.distance_to(player.global_position)
 	if distance_to_player < ATTACK_RANGE2:
 		state = EnemyState.ATTACKING2
-	elif distance_to_player < ATTACK_RANGE and distance_to_player > 150:
+	elif distance_to_player < ATTACK_RANGE and distance_to_player > 200:
 		state = EnemyState.ATTACKING
 
 func attack_player():
@@ -127,11 +127,11 @@ func _on_hurtbox_area_entered(area):
 		
 func shoot():
 	# Create a new instance of the bullet object
-	var magicsphere = magicsphereObject.instantiate()
+	var firesphere = firesphereObject.instantiate()
 
 	# Set the position of the bullet to the enemy's position
-	magicsphere.global_position = global_position
-	magicsphere.global_position.y -= HEIGHT
+	firesphere.global_position = global_position
+	firesphere.global_position.y -= HEIGHT
 
 	# Calculate the direction towards the player
 	var direction = (player.global_position - global_position).normalized()
@@ -139,17 +139,17 @@ func shoot():
 	# Set the bullet's velocity to move towards the player
 	if player.is_on_floor():
 		direction.y = 0
-	magicsphere.velocity = direction
+	firesphere.velocity = direction
 	
 	# Calculate the angle between the direction vector and the horizontal axis
 	var angle = direction.angle()
 
 	# Rotate the arrow sprite to the calculated angle
-	magicsphere.rotation_degrees = angle * 180 / PI  # Convert angle to degrees
+	firesphere.rotation_degrees = angle * 180 / PI  # Convert angle to degrees
 	
 	# Rotate the collision shape as well
-	var collision_shape = magicsphere.get_node("Hitbox")
-	collision_shape.rotation_degrees = magicsphere.rotation_degrees
+	var collision_shape = firesphere.get_node("Hitbox")
+	collision_shape.rotation_degrees = firesphere.rotation_degrees
 
 	# Add the bullet to the scene
-	get_parent().add_child(magicsphere)
+	get_parent().add_child(firesphere)

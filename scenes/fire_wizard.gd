@@ -13,7 +13,7 @@ const fireballObject = preload("res://scenes/fireball.tscn")
 # Enemy stats
 const SPEED = 200.0
 const JUMP_VELOCITY = -400.0
-var hitpoints = 50
+var hitpoints = 100
 const ATTACK_RANGE = 400
 const ATTACK_RANGE2 = 75
 const IDLE_TIME = 1.5
@@ -105,7 +105,7 @@ func attack_player():
 
 func _on_animated_sprite_2d_animation_finished():
 	if enemy.animation == "hurt":
-		if (prevState != 4):
+		if (prevState != 4 and prevState != 2):
 			state = prevState
 		else:
 			state = EnemyState.CHASING

@@ -105,7 +105,7 @@ func attack_player():
 
 func _on_animated_sprite_2d_animation_finished():
 	if enemy.animation == "hurt":
-		if (prevState != 4):
+		if (prevState != 4 and prevState != 2):
 			state = prevState
 		else:
 			state = EnemyState.CHASING

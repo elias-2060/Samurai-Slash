@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://b0cnhulxn16q3"]
+[gd_scene load_steps=26 format=3 uid="uid://b0cnhulxn16q3"]
 
 [ext_resource type="Texture2D" uid="uid://wupesv7pu3cb" path="res://assets/background.jpg" id="1_o3y2x"]
 [ext_resource type="Texture2D" uid="uid://d27kwxehngmq6" path="res://assets/tileset.png" id="2_6y78u"]
@@ -18,8 +18,11 @@
 [ext_resource type="PackedScene" uid="uid://c36a6kscmv5wb" path="res://scenes/lightning_mage.tscn" id="14_7imqw"]
 [ext_resource type="PackedScene" uid="uid://c8iwg0fg6ge3f" path="res://scenes/fireball.tscn" id="15_7uwa6"]
 [ext_resource type="PackedScene" uid="uid://d1haqj8l8v4j0" path="res://scenes/dark_magican.tscn" id="15_qqpld"]
+[ext_resource type="PackedScene" uid="uid://di7nqpcwudukg" path="res://scenes/kitsune.tscn" id="16_8031u"]
 [ext_resource type="PackedScene" uid="uid://cve70kc46milg" path="res://scenes/lightningball.tscn" id="17_r6ite"]
+[ext_resource type="PackedScene" uid="uid://drc5vmu7qqyr" path="res://scenes/firespirit.tscn" id="17_w6vp5"]
 [ext_resource type="PackedScene" uid="uid://kxah6bceaqoo" path="res://scenes/magicsphere.tscn" id="19_plg7g"]
+[ext_resource type="PackedScene" uid="uid://cc1ftxbby2gq0" path="res://scenes/firesphere.tscn" id="21_k8g6n"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8njtk"]
 texture = ExtResource("2_6y78u")
@@ -2839,6 +2842,16 @@ position = Vector2(-1056, 512)
 collision_layer = 2
 collision_mask = 4
 
+[node name="Kitsune" parent="Enemy\'s" instance=ExtResource("16_8031u")]
+position = Vector2(-1235, 359)
+collision_layer = 2
+collision_mask = 4
+
+[node name="Firespirit" parent="Enemy\'s" instance=ExtResource("17_w6vp5")]
+position = Vector2(-1248, 198)
+collision_layer = 2
+collision_mask = 4
+
 [node name="EnemyBullets" type="Node" parent="."]
 
 [node name="Arrow" parent="EnemyBullets" instance=ExtResource("13_s3i7g")]
@@ -2854,6 +2867,11 @@ position = Vector2(3235, 633)
 
 [node name="Magicsphere" parent="EnemyBullets" instance=ExtResource("19_plg7g")]
 position = Vector2(3245, 490)
+collision_layer = 16
+collision_mask = 5
+
+[node name="Firesphere" parent="EnemyBullets" instance=ExtResource("21_k8g6n")]
+position = Vector2(3260, 773)
 collision_layer = 16
 collision_mask = 5
 

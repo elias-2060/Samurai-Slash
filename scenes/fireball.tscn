@@ -62,5 +62,6 @@ frame = 4
 frame_progress = 1.0
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(27.5, -6)
 shape = SubResource("RectangleShape2D_2db2v")
