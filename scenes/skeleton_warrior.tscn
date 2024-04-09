@@ -159,7 +159,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"hurt",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -234,9 +234,7 @@ script = ExtResource("1_u5ja1")
 position = Vector2(1.62125e-05, 3.8147e-06)
 scale = Vector2(1.14844, 1.275)
 sprite_frames = SubResource("SpriteFrames_poh2x")
-animation = &"attack"
-frame = 4
-frame_progress = 1.0
+animation = &"hurt"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false

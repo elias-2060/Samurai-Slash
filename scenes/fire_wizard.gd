@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+@onready var bullet = $Bullet
 # Player object
 @onready var player = $"../../Player"
 # Enemy object
@@ -17,7 +18,8 @@ var hitpoints = 100
 const ATTACK_RANGE = 400
 const ATTACK_RANGE2 = 75
 const IDLE_TIME = 1.5
-const HEIGHT = 5
+const HEIGHTLEFT = 15
+const HEIGHTRIGHT = 5
 const ATTACKTIME = 0.67
 const ATTACK_DAMAGE = 20
 
@@ -45,6 +47,7 @@ func _physics_process(delta):
 
 	match state:
 		EnemyState.IDLE:
+			velocity.x = 0
 			attack_box.disabled = true
 			enemy.play("idle")
 			idle_timer += delta
@@ -55,6 +58,7 @@ func _physics_process(delta):
 			attack_box.disabled = true
 			chase_player()
 		EnemyState.ATTACKING2:
+			velocity.x = 0
 			attack_box.disabled = true
 			enemy.play("attack 2")
 			attack_timer += delta
@@ -63,11 +67,13 @@ func _physics_process(delta):
 				attack_box.disabled = false
 				state = EnemyState.IDLE
 		EnemyState.ATTACKING:
+			velocity.x = 0
 			attack_player()
 		EnemyState.HURT:
 			attack_box.disabled = true
 			enemy.play("hurt")
 		EnemyState.DYING:
+			velocity.x = 0
 			attack_box.disabled = true
 			enemy.play("dying")
 	# Add the gravity
@@ -75,10 +81,7 @@ func _physics_process(delta):
 		velocity.y += gravity * delta
 
 	# Handle movement
-	if state == EnemyState.CHASING:  # Check if the enemy is chasing the player
-		move_and_slide()
-	else:
-		velocity = Vector2.ZERO  # Set velocity to zero when the enemy is not chasing
+	move_and_slide()
 
 func chase_player():
 	enemy.play("walking")
@@ -115,6 +118,7 @@ func _on_animated_sprite_2d_animation_finished():
 			state = EnemyState.IDLE
 	elif enemy.animation == "dying":
 		state = EnemyState.DEAD
+		queue_free()
 
 func _on_hurtbox_area_entered(area):
 	var entity = area.get_parent()
@@ -128,13 +132,16 @@ func _on_hurtbox_area_entered(area):
 func shoot():
 	# Create a new instance of the bullet object
 	var fireball = fireballObject.instantiate()
+	
+	# Calculate the direction towards the player
+	var direction = (player.global_position - global_position).normalized()
 
 	# Set the position of the bullet to the enemy's position
 	fireball.global_position = global_position
-	fireball.global_position.y -= HEIGHT
-
-	# Calculate the direction towards the player
-	var direction = (player.global_position - global_position).normalized()
+	if direction.x < 0:
+		fireball.global_position.y -= HEIGHTLEFT
+	elif direction.x > 0:
+		fireball.global_position.y -= HEIGHTRIGHT
 
 	# Set the bullet's velocity to move towards the player
 	if player.is_on_floor():
@@ -152,4 +159,4 @@ func shoot():
 	collision_shape.rotation_degrees = fireball.rotation_degrees
 
 	# Add the bullet to the scene
-	get_parent().add_child(fireball)
+	bullet.add_child(fireball)

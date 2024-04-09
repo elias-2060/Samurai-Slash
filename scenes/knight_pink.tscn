@@ -138,7 +138,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"hurt",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -192,7 +192,7 @@ script = ExtResource("1_mcvxo")
 position = Vector2(0, 4.9)
 scale = Vector2(1.72, 1.5975)
 sprite_frames = SubResource("SpriteFrames_x5wap")
-animation = &"idle"
+animation = &"hurt"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false

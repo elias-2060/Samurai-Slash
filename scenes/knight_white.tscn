@@ -138,7 +138,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"hurt",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -191,7 +191,7 @@ script = ExtResource("1_ikgyv")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(1.72049, 1.52535)
 sprite_frames = SubResource("SpriteFrames_vsrds")
-animation = &"running"
+animation = &"hurt"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false

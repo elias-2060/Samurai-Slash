@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 # Player object
-@onready var player = $"../../Player"
+@onready var player = $"../../../../Player"
 # Fireball object
 @onready var animated_sprite_2d = $AnimatedSprite2D
 

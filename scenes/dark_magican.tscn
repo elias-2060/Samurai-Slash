@@ -319,7 +319,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"hurt",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -393,9 +393,7 @@ script = ExtResource("1_hg7nv")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(1.25, 1.318)
 sprite_frames = SubResource("SpriteFrames_ta5t3")
-animation = &"attack 2"
-frame = 8
-frame_progress = 1.0
+animation = &"hurt"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
@@ -421,6 +419,8 @@ collision_layer = 16
 position = Vector2(33, -9)
 shape = SubResource("CircleShape2D_rsi4j")
 disabled = true
+
+[node name="Bullet" type="Node" parent="."]
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

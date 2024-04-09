@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 # Player object
-@onready var player = $"../../Player"
+@onready var player = $"../../../../Player"
 
 const ATTACK_DAMAGE = 10
 const SPEED = 1200.0

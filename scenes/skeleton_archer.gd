@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+@onready var bullet = $Bullet
+
 # Player object
 @onready var player = $"../../Player"
 # Enemy object
@@ -23,7 +25,7 @@ const ATTACK_DAMAGE = 5
 
 # Enemy states
 enum EnemyState { IDLE, CHASING, ATTACKING, ATTACKING2, HURT, DYING, DEAD }
-var state = EnemyState.CHASING
+var state = EnemyState.IDLE
 var prevState
 var idle_timer = 0.0
 var attack_timer = 0.0
@@ -42,9 +44,11 @@ func _physics_process(delta):
 	if hitpoints <= 0:
 		hitpoints = -1
 		state = EnemyState.DYING
+	
 
 	match state:
 		EnemyState.IDLE:
+			velocity.x = 0
 			attack_box.disabled = true
 			enemy.play("idle")
 			idle_timer += delta
@@ -55,6 +59,7 @@ func _physics_process(delta):
 			attack_box.disabled = true
 			chase_player()
 		EnemyState.ATTACKING2:
+			velocity.x = 0
 			attack_box.disabled = true
 			enemy.play("attack 2")
 			attack_timer += delta
@@ -63,22 +68,22 @@ func _physics_process(delta):
 				attack_box.disabled = false
 				state = EnemyState.IDLE
 		EnemyState.ATTACKING:
+			velocity.x = 0
 			attack_player()
 		EnemyState.HURT:
 			attack_box.disabled = true
 			enemy.play("hurt")
 		EnemyState.DYING:
+			velocity.x = 0
 			attack_box.disabled = true
 			enemy.play("dying")
+	
 	# Add the gravity
 	if not is_on_floor():
 		velocity.y += gravity * delta
-
+		
 	# Handle movement
-	if state == EnemyState.CHASING:  # Check if the enemy is chasing the player
-		move_and_slide()
-	else:
-		velocity = Vector2.ZERO  # Set velocity to zero when the enemy is not chasing
+	move_and_slide()
 
 func chase_player():
 	enemy.play("walking")
@@ -115,6 +120,7 @@ func _on_animated_sprite_2d_animation_finished():
 			state = EnemyState.IDLE
 	elif enemy.animation == "dying":
 		state = EnemyState.DEAD
+		queue_free()
 
 func _on_hurtbox_area_entered(area):
 	var entity = area.get_parent()
@@ -152,4 +158,4 @@ func shoot():
 	collision_shape.rotation_degrees = arrow.rotation_degrees
 
 	# Add the bullet to the scene
-	get_parent().add_child(arrow)
+	bullet.add_child(arrow)

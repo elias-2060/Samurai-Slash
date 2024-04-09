@@ -12,7 +12,7 @@ const SPEED = 200.0
 const JUMP_VELOCITY = -400.0
 const ATTACK_DAMAGE = 25
 var hitpoints = 175
-const ATTACK_RANGE = 60
+const ATTACK_RANGE = 65
 const IDLE_TIME = 1
 const ATTACKTIME = 0.35
 
@@ -41,6 +41,7 @@ func _physics_process(delta):
 
 	match state:
 		EnemyState.IDLE:
+			velocity.x = 0
 			attack_box.disabled = true
 			enemy.play("idle")
 			idle_timer += delta
@@ -51,6 +52,7 @@ func _physics_process(delta):
 			attack_box.disabled = true
 			chase_player()
 		EnemyState.ATTACKING:
+			velocity.x = 0
 			attack_player()
 			attack_timer += delta
 			if attack_timer >= ATTACKTIME:
@@ -61,6 +63,7 @@ func _physics_process(delta):
 			attack_box.disabled = true
 			enemy.play("hurt")
 		EnemyState.DYING:
+			velocity.x = 0
 			attack_box.disabled = true
 			enemy.play("dying")
 			
@@ -69,10 +72,7 @@ func _physics_process(delta):
 		velocity.y += gravity * delta
 
 	# Handle movement
-	if state == EnemyState.CHASING:  # Check if the enemy is chasing the player
-		move_and_slide()
-	else:
-		velocity = Vector2.ZERO  # Set velocity to zero when the enemy is not chasing
+	move_and_slide()
 
 func chase_player():
 	enemy.play("running")
@@ -103,6 +103,7 @@ func _on_animated_sprite_2d_animation_finished():
 			state = EnemyState.CHASING
 	elif enemy.animation == "dying":
 		state = EnemyState.DEAD
+		queue_free()
 
 func _on_hurtbox_area_entered(area):
 	var entity = area.get_parent()
