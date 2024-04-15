@@ -2,8 +2,14 @@ extends Node
 
 # Player object
 @onready var player = $"../Player"
+# Enemy's cointainer object
+@onready var enemy_s_container = $"../Enemy'sContainer"
+# Power ups container object
+@onready var power_ups_container = $"../PowerUpsContainer"
 
-@onready var enemys = $"../Enemy's"
+const POWER_UPS = [
+	preload("res://scenes/damage_boost.tscn")
+]
 
 # Enemies
 const NIVEAU_ONE = [
@@ -38,6 +44,9 @@ var enemies_left_in_wave = 0
 var wave_enemy_limit = 2 # Initial limit for enemies in each wave
 var current_niveau = 1 # Initial niveau
 var enemies_by_niveau = [] # Array to hold enemies based on their niveau
+var power_up_spawn_timer # Timer for spawning power-ups
+var time_since_last_power_up = 0.0 # Variable to track time elapsed for power-up spawning
+const POWER_UP_TIMER = 20.0 # Variable to define the time before the power up spawns
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -97,7 +106,23 @@ func spawn_enemies():
 			enemy.global_position.x = randf_range(minRight, maxRight)
 		
 		# Add the enemy to the scene
-		enemys.add_child.call_deferred(enemy)
+		enemy_s_container.add_child.call_deferred(enemy)
+
+# Spawn a power-up at a random position
+func spawn_power_up():
+	var power_up_type = POWER_UPS[randi() % POWER_UPS.size()]
+	var power_up = power_up_type.instantiate()
+	
+	# Set the power-up position randomly within the visible area
+	var minHeight = 459
+	var maxHeight = 310
+	var minWidth = -870
+	var maxWidth = 2895
+	power_up.global_position.x = randf_range(minWidth, maxWidth)
+	power_up.global_position.y = randf_range(minHeight, maxHeight)
+	
+	# Add the power-up to the scene
+	power_ups_container.add_child(power_up)
 
 # Check if all enemies in the wave are defeated
 func check_wave_completed():
@@ -108,3 +133,16 @@ func check_wave_completed():
 func _on_enemys_child_exiting_tree(_node):
 	enemies_left_in_wave -= 1
 	check_wave_completed()
+
+func _physics_process(delta):
+	# Increment time_since_last_power_up by the time passed since the last frame
+	time_since_last_power_up += delta
+	# Check if 20 seconds have passed and there are no power-ups already in the container
+	if time_since_last_power_up >= POWER_UP_TIMER and power_ups_container.get_child_count() == 0:
+		# Spawn a power-up
+		spawn_power_up()
+
+
+func _on_power_ups_container_child_exiting_tree(_node):
+	# Reset the time_since_last_power_up
+	time_since_last_power_up = 0.0

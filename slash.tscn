@@ -2764,6 +2764,9 @@ collision_mask = 4
 [node name="GameManager" type="Node" parent="."]
 script = ExtResource("4_inh2x")
 
-[node name="Enemy\'s" type="Node" parent="."]
+[node name="Enemy\'sContainer" type="Node" parent="."]
 
-[connection signal="child_exiting_tree" from="Enemy's" to="GameManager" method="_on_enemys_child_exiting_tree"]
+[node name="PowerUpsContainer" type="Node" parent="."]
+
+[connection signal="child_exiting_tree" from="Enemy'sContainer" to="GameManager" method="_on_enemys_child_exiting_tree"]
+[connection signal="child_exiting_tree" from="PowerUpsContainer" to="GameManager" method="_on_power_ups_container_child_exiting_tree"]

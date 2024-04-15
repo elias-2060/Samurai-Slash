@@ -3,9 +3,9 @@ extends CharacterBody2D
 # Player stats
 var speed = 350.0
 const JUMP_VELOCITY = -550.0
-const ATTACK_DAMAGE = 20
-const ATTACK_DAMAGE2 = 25
-const ATTACK_DAMAGE3 = 30
+var attack_damage = 20
+var attack_damage2 = 25
+var attack_damage3 = 30
 const COMBO_TIME_LIMIT = 0.5
 var hitpoints = 1000
 
@@ -17,6 +17,9 @@ var isIdle = false
 var isHurt = false
 var isDying = false
 var isDead = false
+var power_up_duration = 0
+var power_up_time = 0
+var damage_boost = false
 
 # Combo Attack
 var comboCount = 0
@@ -40,12 +43,32 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 
 # When player gets hit take damage.
-func take_damage(attack_damage):
+func take_damage(damage):
 	isHurt = true
 	isIdle = false
-	hitpoints -= attack_damage
+	hitpoints -= damage
+	
+func add_attack_boost(attack_boost, duration):
+	attack_damage += attack_boost
+	attack_damage2 += attack_boost
+	attack_damage3 += attack_boost
+	power_up_duration = duration
+	damage_boost = true
+
+func remove_attack_boost():
+	attack_damage = 20
+	attack_damage2 = 25
+	attack_damage3 = 30
+	power_up_time = 0
+	power_up_duration = 0
+	
 
 func _physics_process(delta):
+	power_up_time += delta
+	if power_up_time >= power_up_duration:
+		if damage_boost:
+			remove_attack_boost()
+		
 	# Set dying state
 	if hitpoints <= 0:
 		hitpoints = -1

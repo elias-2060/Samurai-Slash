@@ -13,7 +13,6 @@ config_version=5
 config/name="Slash"
 run/main_scene="res://slash.tscn"
 config/features=PackedStringArray("4.2", "Mobile")
-config/icon="res://assets/icon.svg"
 
 [display]
 
@@ -67,6 +66,7 @@ slashTest={
 2d_physics/layer_3="World"
 2d_physics/layer_4="Weapon"
 2d_physics/layer_5="EnemyAttack"
+2d_physics/layer_6="PowerUp"
 
 [physics]
 

@@ -125,11 +125,11 @@ func _on_animated_sprite_2d_animation_finished():
 func _on_hurtbox_area_entered(area):
 	var entity = area.get_parent()
 	if entity.comboCount == 1:
-		take_damage(entity.ATTACK_DAMAGE)
+		take_damage(entity.attack_damage)
 	elif entity.comboCount == 2:
-		take_damage(entity.ATTACK_DAMAGE2)
+		take_damage(entity.attack_damage2)
 	elif entity.comboCount == 3:
-		take_damage(entity.ATTACK_DAMAGE3)
+		take_damage(entity.attack_damage3)
 		
 func shoot():
 	# Create a new instance of the bullet object

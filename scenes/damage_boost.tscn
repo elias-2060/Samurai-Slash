@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://bxk6umrlq6ecp"]
+
+[ext_resource type="Script" path="res://scenes/damage_boost.gd" id="1_g5fur"]
+[ext_resource type="Texture2D" uid="uid://c7j4u8fe0x8a1" path="res://assets/Items/Item_Powerup_Weapon_Sword_11.png" id="1_puuoy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1p4mp"]
+size = Vector2(23.4876, 50.916)
+
+[node name="DamageBoost" type="CharacterBody2D"]
+position = Vector2(548, 252)
+collision_layer = 32
+script = ExtResource("1_g5fur")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.43, 0.43)
+texture = ExtResource("1_puuoy")
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(1.77338, -0.196411)
+rotation = 0.837758
+shape = SubResource("RectangleShape2D_1p4mp")

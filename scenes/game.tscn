@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://b8uaev6opht2"]
+[gd_scene load_steps=26 format=3 uid="uid://b8uaev6opht2"]
 
 [ext_resource type="Texture2D" uid="uid://wupesv7pu3cb" path="res://assets/background.jpg" id="1_4blxh"]
 [ext_resource type="Texture2D" uid="uid://d27kwxehngmq6" path="res://assets/tileset.png" id="2_av2po"]
@@ -22,6 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://cve70kc46milg" path="res://scenes/lightningball.tscn" id="20_nq1om"]
 [ext_resource type="PackedScene" uid="uid://kxah6bceaqoo" path="res://scenes/magicsphere.tscn" id="21_bu0qu"]
 [ext_resource type="PackedScene" uid="uid://cc1ftxbby2gq0" path="res://scenes/firesphere.tscn" id="22_61uro"]
+[ext_resource type="PackedScene" uid="uid://bxk6umrlq6ecp" path="res://scenes/damage_boost.tscn" id="23_sq3ea"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8njtk"]
 texture = ExtResource("2_av2po")
@@ -2874,3 +2875,8 @@ collision_mask = 5
 position = Vector2(3260, 773)
 collision_layer = 16
 collision_mask = 5
+
+[node name="PowerUps" type="Node" parent="."]
+
+[node name="DamageBoost" parent="PowerUps" instance=ExtResource("23_sq3ea")]
+position = Vector2(1305, 393)
