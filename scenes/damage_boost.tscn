@@ -15,7 +15,7 @@ script = ExtResource("1_g5fur")
 scale = Vector2(0.43, 0.43)
 texture = ExtResource("1_puuoy")
 
-[node name="Hitbox" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
 position = Vector2(1.77338, -0.196411)
 rotation = 0.837758
