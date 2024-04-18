@@ -7,6 +7,7 @@ var attack_damage = 20
 var attack_damage2 = 25
 var attack_damage3 = 30
 const COMBO_TIME_LIMIT = 0.5
+const MAX_HEALTH = 1000
 var hitpoints = 1000
 
 # Player states
@@ -20,6 +21,9 @@ var isDead = false
 var power_up_duration = 0
 var power_up_time = 0
 var damage_boost = false
+var speed_boost = false
+var invincible_boost = false
+var attackAnimationFinished = true
 
 # Combo Attack
 var comboCount = 0
@@ -30,13 +34,13 @@ var comboResetTimer = 0
 @onready var player = $AnimatedSprite2D
 # Camera object
 @onready var camera_2d = $Camera2D
+# AnimationPlayer object
+@onready var animation_player = $AnimationPlayer
 
 # Player sword hitboxs
 @onready var attack_1_hitbox = $Hitbox/Attack1Hitbox
 @onready var attack_2_hitbox = $Hitbox/Attack2Hitbox
 @onready var attack_3_hitbox = $Hitbox/Attack3Hitbox
-
-var attackAnimationFinished = true
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -44,9 +48,10 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 # When player gets hit take damage.
 func take_damage(damage):
-	isHurt = true
-	isIdle = false
-	hitpoints -= damage
+	if !invincible_boost:
+		isHurt = true
+		isIdle = false
+		hitpoints -= damage
 	
 func add_attack_boost(attack_boost, duration):
 	attack_damage += attack_boost
@@ -54,6 +59,29 @@ func add_attack_boost(attack_boost, duration):
 	attack_damage3 += attack_boost
 	power_up_duration = duration
 	damage_boost = true
+	
+func add_speed_boost(boost, duration):
+	speed += boost
+	power_up_duration = duration
+	speed_boost = true
+
+func add_max_health_boost():
+	hitpoints = MAX_HEALTH
+
+func add_invincible_boost(duration):
+	power_up_duration = duration
+	invincible_boost = true
+	
+
+func remove_speed_boost():
+	speed = 350
+	power_up_time = 0
+	power_up_duration = 0
+	speed_boost = false
+func remove_invincible_boost():
+	invincible_boost = false
+	power_up_time = 0
+	power_up_duration = 0
 
 func remove_attack_boost():
 	attack_damage = 20
@@ -61,13 +89,22 @@ func remove_attack_boost():
 	attack_damage3 = 30
 	power_up_time = 0
 	power_up_duration = 0
+	damage_boost = false
 	
 
 func _physics_process(delta):
+	# make the player invincible if he has the boost
+	if invincible_boost:
+		animation_player.play("invincible")
+		
 	power_up_time += delta
 	if power_up_time >= power_up_duration:
 		if damage_boost:
 			remove_attack_boost()
+		elif speed_boost:
+			remove_speed_boost()
+		elif invincible_boost:
+			remove_invincible_boost()
 		
 	# Set dying state
 	if hitpoints <= 0:

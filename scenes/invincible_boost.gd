@@ -4,7 +4,6 @@ extends Node2D
 @onready var player = $"../../Player"
 @onready var animation_player = $AnimationPlayer
 
-const ATTACK_DAMAGE_BOOST = 10
 const BOOST_DURATION = 10.0
 
 
@@ -14,5 +13,5 @@ func _physics_process(_delta):
 
 
 func _on_area_2d_area_entered(_area):
-	player.add_attack_boost(ATTACK_DAMAGE_BOOST, BOOST_DURATION)
+	player.add_invincible_boost(BOOST_DURATION)
 	queue_free()

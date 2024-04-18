@@ -8,7 +8,10 @@ extends Node
 @onready var power_ups_container = $"../PowerUpsContainer"
 
 const POWER_UPS = [
-	preload("res://scenes/damage_boost.tscn")
+	preload("res://scenes/damage_boost.tscn"),
+	preload("res://scenes/max_health.tscn"),
+	preload("res://scenes/speed_boost.tscn"),
+	preload("res://scenes/invincible_boost.tscn")
 ]
 
 # Enemies
@@ -41,12 +44,12 @@ const NIVEAU_FOUR = [
 # Variables
 var current_wave = 0
 var enemies_left_in_wave = 0
-var wave_enemy_limit = 2 # Initial limit for enemies in each wave
+var wave_enemy_limit = 1 # Initial limit for enemies in each wave
 var current_niveau = 1 # Initial niveau
 var enemies_by_niveau = [] # Array to hold enemies based on their niveau
 var power_up_spawn_timer # Timer for spawning power-ups
 var time_since_last_power_up = 0.0 # Variable to track time elapsed for power-up spawning
-const POWER_UP_TIMER = 20.0 # Variable to define the time before the power up spawns
+const POWER_UP_TIMER = 5.0 # Variable to define the time before the power up spawns
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -55,7 +58,8 @@ func _ready():
 # Start a new wave
 func start_wave():
 	current_wave += 1
-	enemies_left_in_wave = wave_enemy_limit * current_wave
+	wave_enemy_limit += current_niveau
+	enemies_left_in_wave = wave_enemy_limit
 	update_niveau()
 	spawn_enemies()
 
@@ -69,15 +73,17 @@ func update_niveau():
 	
 	# Update enemies list based on the current niveau
 	match current_niveau:
-		1: enemies_by_niveau = NIVEAU_ONE
-		2: enemies_by_niveau = NIVEAU_TWO
-		3: enemies_by_niveau = NIVEAU_THREE
-		4: enemies_by_niveau = NIVEAU_FOUR
+		1: enemies_by_niveau = [NIVEAU_ONE]
+		2: enemies_by_niveau = [NIVEAU_ONE, NIVEAU_TWO]
+		3: enemies_by_niveau = [NIVEAU_ONE, NIVEAU_TWO, NIVEAU_THREE]
+		4: enemies_by_niveau = [NIVEAU_ONE, NIVEAU_TWO, NIVEAU_THREE, NIVEAU_FOUR]
 
+# Spawn enemies for the current wave
 # Spawn enemies for the current wave
 func spawn_enemies():
 	for i in range(enemies_left_in_wave):
-		var enemy_type = enemies_by_niveau[randi() % enemies_by_niveau.size()]
+		# Selecting the niveau based on weighted probability
+		var enemy_type = choose_enemy_type()
 		var enemy = enemy_type.instantiate()
 		
 		# Set collision layer and mask
@@ -90,7 +96,7 @@ func spawn_enemies():
 		# Defining the x-ranges
 		var minRight = player.global_position.x + 600
 		var minLeft = player.global_position.x - 600
-		var maxRight = 2895
+		var maxRight = 2890
 		var maxLeft = -870
 		
 		# Ensure minLeft and minRight do not exceed maxLeft and maxRight
@@ -108,6 +114,18 @@ func spawn_enemies():
 		# Add the enemy to the scene
 		enemy_s_container.add_child.call_deferred(enemy)
 
+# Helper function to choose enemy type with higher probability for the current niveau
+func choose_enemy_type() -> PackedScene:
+	var current_niveau_index = current_niveau - 1
+	if randf() < 0.7:  # 70% chance to spawn from current niveau
+		return enemies_by_niveau[current_niveau_index][randi() % enemies_by_niveau[current_niveau_index].size()]
+	else:
+		# Randomly select from all niveaus
+		var all_enemies = []
+		for niveau in enemies_by_niveau:
+			all_enemies += niveau
+		return all_enemies[randi() % all_enemies.size()]
+
 # Spawn a power-up at a random position
 func spawn_power_up():
 	var power_up_type = POWER_UPS[randi() % POWER_UPS.size()]
@@ -117,7 +135,7 @@ func spawn_power_up():
 	var minHeight = 459
 	var maxHeight = 310
 	var minWidth = -870
-	var maxWidth = 2895
+	var maxWidth = 2885
 	power_up.global_position.x = randf_range(minWidth, maxWidth)
 	power_up.global_position.y = randf_range(minHeight, maxHeight)
 	

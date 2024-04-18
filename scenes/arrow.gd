@@ -4,7 +4,7 @@ extends CharacterBody2D
 @onready var player = $"../../../../Player"
 
 const ATTACK_DAMAGE = 10
-const SPEED = 1200.0
+const SPEED = 1000.0
 
 
 # Movement and collision handling

@@ -13,7 +13,7 @@ const JUMP_VELOCITY = -400.0
 const ATTACK_DAMAGE = 50
 var hitpoints = 50
 const ATTACK_RANGE = 50
-const IDLE_TIME = 3
+const IDLE_TIME = 5
 const ATTACKTIME = 0.2
 
 

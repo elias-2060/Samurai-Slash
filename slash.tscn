@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://l00pb1j40lar"]
+[gd_scene load_steps=8 format=3 uid="uid://l00pb1j40lar"]
 
 [ext_resource type="Texture2D" uid="uid://wupesv7pu3cb" path="res://assets/background.jpg" id="1_qvxb5"]
 [ext_resource type="Texture2D" uid="uid://d27kwxehngmq6" path="res://assets/tileset.png" id="2_t053i"]
@@ -2742,6 +2742,12 @@ physics_layer_0/collision_layer = 4
 physics_layer_0/collision_mask = 3
 sources/0 = SubResource("TileSetAtlasSource_8njtk")
 
+[sub_resource type="Environment" id="Environment_fwoi8"]
+background_mode = 3
+glow_enabled = true
+glow_intensity = 2.0
+glow_strength = 1.5
+
 [node name="Slash" type="Node"]
 
 [node name="Background" type="TextureRect" parent="."]
@@ -2767,6 +2773,9 @@ script = ExtResource("4_inh2x")
 [node name="Enemy\'sContainer" type="Node" parent="."]
 
 [node name="PowerUpsContainer" type="Node" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_fwoi8")
 
 [connection signal="child_exiting_tree" from="Enemy'sContainer" to="GameManager" method="_on_enemys_child_exiting_tree"]
 [connection signal="child_exiting_tree" from="PowerUpsContainer" to="GameManager" method="_on_power_ups_container_child_exiting_tree"]

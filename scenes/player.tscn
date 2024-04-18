@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://dc7mr7kd5gc3c"]
+[gd_scene load_steps=63 format=3 uid="uid://dc7mr7kd5gc3c"]
 
 [ext_resource type="Script" path="res://scenes/player.gd" id="1_imceo"]
 [ext_resource type="Texture2D" uid="uid://ch8mtimser8bm" path="res://assets/Samurai/Attack_1.png" id="2_m0q7q"]
@@ -369,7 +369,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b00wh"]
-size = Vector2(33, 86.5)
+size = Vector2(31, 88.25)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xawss"]
 size = Vector2(32, 7)
@@ -383,8 +383,29 @@ size = Vector2(17.2047, 6.39668)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cr5gk"]
 size = Vector2(32, 86.25)
 
+[sub_resource type="Animation" id="Animation_f8hta"]
+resource_name = "invincible"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.270588), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j6yg0"]
+_data = {
+"invincible": SubResource("Animation_f8hta")
+}
+
 [node name="Player" type="CharacterBody2D"]
 position = Vector2(515, 481)
+collision_mask = 0
 script = ExtResource("1_imceo")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -397,7 +418,7 @@ animation = &"idle"
 [node name="worldCollision" type="CollisionShape2D" parent="."]
 visible = false
 light_mask = 0
-position = Vector2(0.5, 23)
+position = Vector2(2.5, 22.125)
 shape = SubResource("RectangleShape2D_b00wh")
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -438,6 +459,12 @@ collision_mask = 16
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2(0, 22.875)
 shape = SubResource("RectangleShape2D_cr5gk")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_j6yg0")
+}
+speed_scale = 1.5
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
