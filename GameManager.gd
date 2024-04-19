@@ -7,6 +7,8 @@ extends Node
 # Power ups container object
 @onready var power_ups_container = $"../PowerUpsContainer"
 
+const MENU_SCENE = preload("res://scenes/menu.tscn")
+
 const POWER_UPS = [
 	preload("res://scenes/damage_boost.tscn"),
 	preload("res://scenes/max_health.tscn"),
@@ -159,6 +161,23 @@ func _physics_process(delta):
 	if time_since_last_power_up >= POWER_UP_TIMER and power_ups_container.get_child_count() == 0:
 		# Spawn a power-up
 		spawn_power_up()
+	
+	if Input.is_action_just_pressed("escape"):
+		pause_game()
+
+func pause_game():
+	# Pause any game processes (e.g., physics, animations)
+	get_tree().paused = true
+	
+	# Load and instance the menu scene
+	var menu_instance = MENU_SCENE.instantiate()
+	
+	menu_instance.global_position.x = player.global_position.x - 60
+	menu_instance.global_position.y = player.global_position.y - 200
+	
+	# Add the menu as a child of the root viewport
+	get_tree().get_root().add_child(menu_instance)
+		
 
 
 func _on_power_ups_container_child_exiting_tree(_node):

@@ -58,11 +58,13 @@ func add_attack_boost(attack_boost, duration):
 	attack_damage2 += attack_boost
 	attack_damage3 += attack_boost
 	power_up_duration = duration
+	power_up_time = 0
 	damage_boost = true
 	
 func add_speed_boost(boost, duration):
 	speed += boost
 	power_up_duration = duration
+	power_up_time = 0
 	speed_boost = true
 
 func add_max_health_boost():
@@ -70,25 +72,24 @@ func add_max_health_boost():
 
 func add_invincible_boost(duration):
 	power_up_duration = duration
+	power_up_time = 0
 	invincible_boost = true
 	
 
 func remove_speed_boost():
 	speed = 350
-	power_up_time = 0
-	power_up_duration = 0
+	power_up_duration = 9999999
 	speed_boost = false
+	
 func remove_invincible_boost():
 	invincible_boost = false
-	power_up_time = 0
-	power_up_duration = 0
+	power_up_duration = 9999999
 
 func remove_attack_boost():
 	attack_damage = 20
 	attack_damage2 = 25
 	attack_damage3 = 30
-	power_up_time = 0
-	power_up_duration = 0
+	power_up_duration = 9999999
 	damage_boost = false
 	
 
