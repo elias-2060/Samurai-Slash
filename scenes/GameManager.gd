@@ -6,6 +6,8 @@ extends Node
 @onready var enemy_s_container = $"../Enemy'sContainer"
 # Power ups container object
 @onready var power_ups_container = $"../PowerUpsContainer"
+# Self object
+@onready var game_manager_object = $"."
 
 const MENU_SCENE = preload("res://scenes/menu.tscn")
 
@@ -52,10 +54,39 @@ var enemies_by_niveau = [] # Array to hold enemies based on their niveau
 var power_up_spawn_timer # Timer for spawning power-ups
 var time_since_last_power_up = 0.0 # Variable to track time elapsed for power-up spawning
 const POWER_UP_TIMER = 5.0 # Variable to define the time before the power up spawns
+const playerPos = Vector2(1160,258)
+var restart = false
+var score = 0
+var highscore = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	player.global_position = playerPos
 	start_wave()
+ 
+func reset():
+	restart = true
+	current_wave = 0
+	enemies_left_in_wave = 0
+	wave_enemy_limit = 1
+	current_niveau = 1
+	time_since_last_power_up = 0.0
+	score = 0
+	while enemy_s_container.get_child_count() > 0:
+		var child = enemy_s_container.get_child(0)  # Get the first child
+		enemy_s_container.remove_child(child)       # Remove the child from the parent node
+		child.queue_free()
+		
+	while power_ups_container.get_child_count() > 0:
+		var child = power_ups_container.get_child(0)  # Get the first child
+		power_ups_container.remove_child(child)       # Remove the child from the parent node
+		child.queue_free()
+	player.hitpoints = 1000
+	player.remove_speed_boost()
+	player.remove_invincible_boost()
+	player.remove_attack_boost()
+	_ready()
+	
 
 # Start a new wave
 func start_wave():
@@ -146,7 +177,7 @@ func spawn_power_up():
 
 # Check if all enemies in the wave are defeated
 func check_wave_completed():
-	if enemies_left_in_wave <= 0:
+	if enemies_left_in_wave <= 0 and restart == false:
 		start_wave()
 
 # Called when an enemy is defeated
@@ -172,11 +203,13 @@ func pause_game():
 	# Load and instance the menu scene
 	var menu_instance = MENU_SCENE.instantiate()
 	
-	menu_instance.global_position.x = player.global_position.x - 60
-	menu_instance.global_position.y = player.global_position.y - 200
+	menu_instance.global_position.x = player.global_position.x - 35
+	menu_instance.global_position.y = player.global_position.y - 300
 	
 	# Add the menu as a child of the root viewport
 	get_tree().get_root().add_child(menu_instance)
+	
+	menu_instance.game_manager = game_manager_object
 		
 
 

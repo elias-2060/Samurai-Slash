@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://b8uaev6opht2"]
+[gd_scene load_steps=30 format=3 uid="uid://b8uaev6opht2"]
 
 [ext_resource type="Texture2D" uid="uid://wupesv7pu3cb" path="res://assets/background.jpg" id="1_4blxh"]
 [ext_resource type="Texture2D" uid="uid://d27kwxehngmq6" path="res://assets/tileset.png" id="2_av2po"]
@@ -26,6 +26,7 @@
 [ext_resource type="PackedScene" uid="uid://8woxopt2ynor" path="res://scenes/max_health.tscn" id="24_j5onx"]
 [ext_resource type="PackedScene" uid="uid://dcvatug0rr1b3" path="res://scenes/speed_boost.tscn" id="25_qcnrg"]
 [ext_resource type="PackedScene" uid="uid://p6q8yi5mkep1" path="res://scenes/invincible_boost.tscn" id="26_3u3bv"]
+[ext_resource type="PackedScene" uid="uid://dweik3yhpubbd" path="res://scenes/game_menu.tscn" id="27_im4nd"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8njtk"]
 texture = ExtResource("2_av2po")
@@ -2894,6 +2895,7 @@ position = Vector2(670, 447)
 position = Vector2(581, 444)
 
 [node name="Menu" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -2912,3 +2914,6 @@ layout_mode = 2
 
 [node name="Exit" type="Button" parent="Menu/MarginContainer/VBoxContainer"]
 layout_mode = 2
+
+[node name="GameMenu" parent="." instance=ExtResource("27_im4nd")]
+visible = false
