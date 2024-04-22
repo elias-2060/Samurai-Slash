@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://l00pb1j40lar"]
+[gd_scene load_steps=9 format=3 uid="uid://l00pb1j40lar"]
 
 [ext_resource type="Texture2D" uid="uid://wupesv7pu3cb" path="res://assets/background.jpg" id="1_vm73o"]
 [ext_resource type="Texture2D" uid="uid://d27kwxehngmq6" path="res://assets/tileset.png" id="2_820mf"]
 [ext_resource type="PackedScene" uid="uid://dc7mr7kd5gc3c" path="res://scenes/player.tscn" id="3_mrk1n"]
 [ext_resource type="Script" path="res://scenes/GameManager.gd" id="4_3pvj1"]
+[ext_resource type="PackedScene" uid="uid://bx82lfadxtl6e" path="res://scenes/wave_info.tscn" id="5_vyyhn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8njtk"]
 texture = ExtResource("2_820mf")
@@ -2778,5 +2779,18 @@ script = ExtResource("4_3pvj1")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_fwoi8")
 
+[node name="WaveInfo" parent="." instance=ExtResource("5_vyyhn")]
+offset_left = 782.0
+offset_top = 45.0
+offset_right = 1105.0
+offset_bottom = 85.0
+
+[node name="WaveInfoTimer" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="WaveInfoTImer2" type="Timer" parent="."]
+
 [connection signal="child_exiting_tree" from="Enemy'sContainer" to="GameManager" method="_on_enemys_child_exiting_tree"]
 [connection signal="child_exiting_tree" from="PowerUpsContainer" to="GameManager" method="_on_power_ups_container_child_exiting_tree"]
+[connection signal="timeout" from="WaveInfoTimer" to="GameManager" method="_on_wave_info_timer_timeout"]
+[connection signal="timeout" from="WaveInfoTImer2" to="GameManager" method="_on_wave_info_t_imer_2_timeout"]

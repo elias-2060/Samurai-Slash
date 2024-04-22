@@ -5,9 +5,11 @@
 
 [sub_resource type="SystemFont" id="SystemFont_vcw5b"]
 font_names = PackedStringArray("Impact")
+subpixel_positioning = 0
 
 [sub_resource type="SystemFont" id="SystemFont_uypo8"]
 font_names = PackedStringArray("Impact")
+subpixel_positioning = 0
 
 [node name="GameMenu" type="Control"]
 layout_mode = 3

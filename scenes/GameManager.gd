@@ -8,6 +8,16 @@ extends Node
 @onready var power_ups_container = $"../PowerUpsContainer"
 # Self object
 @onready var game_manager_object = $"."
+# WaveInfo object
+@onready var wave_info = $"../WaveInfo"
+# WaveInfoText object
+@onready var label = $"../WaveInfo/MarginContainer/HBoxContainer/VBoxContainer/Label"
+# WaveInfoText2 object
+@onready var label2 = $"../WaveInfo/MarginContainer/HBoxContainer/VBoxContainer/Label2"
+# WaveInfoTimer object
+@onready var wave_info_timer = $"../WaveInfoTimer"
+@onready var wave_info_t_imer_2 = $"../WaveInfoTImer2"
+
 
 const MENU_SCENE = preload("res://scenes/menu.tscn")
 
@@ -58,6 +68,9 @@ const playerPos = Vector2(1160,258)
 var restart = false
 var score = 0
 var highscore = 0
+const FADE_OUT_DURATION = 2.0  # Define the fade-out duration in seconds
+var startFade = false
+var startFade2 = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -72,6 +85,10 @@ func reset():
 	current_niveau = 1
 	time_since_last_power_up = 0.0
 	score = 0
+	label.visible = false
+	label2.visible = false
+	startFade = false
+	startFade2 = false
 	while enemy_s_container.get_child_count() > 0:
 		var child = enemy_s_container.get_child(0)  # Get the first child
 		enemy_s_container.remove_child(child)       # Remove the child from the parent node
@@ -94,15 +111,31 @@ func start_wave():
 	wave_enemy_limit += current_niveau
 	enemies_left_in_wave = wave_enemy_limit
 	update_niveau()
-	spawn_enemies()
+	update_wave_info()  # Update the wave information before spawning enemies
+	# Start the wave info timer
+	wave_info_timer.start()
+	label.visible = true
+	
+# Function to update the wave information text
+func update_wave_info():
+	label.modulate.a = 1.0  # Reset the alpha value when updating text
+	label2.modulate.a = 1.0  # Reset the alpha value when updating text
+	# Show the WaveInfo object and update its text label
+	label.visible = true
+	label.text = "Wave " + str(current_wave)
+	
 
 # Update the niveau every two waves
 func update_niveau():
 	if current_wave % 2 == 0:
 		current_niveau += 1
+		label2.text = "Stronger monsters are coming"
 		# Reset current_niveau to 1 if it exceeds 4 (maximum niveau)
 		if current_niveau > 4:
 			current_niveau = 4
+			label2.text = "Monsters are coming"
+	else:
+		label2.text = "Monsters are coming"
 	
 	# Update enemies list based on the current niveau
 	match current_niveau:
@@ -186,6 +219,21 @@ func _on_enemys_child_exiting_tree(_node):
 	check_wave_completed()
 
 func _physics_process(delta):
+	if startFade:
+		var fade_alpha = clamp(label.modulate.a - (delta / FADE_OUT_DURATION), 0.0, 1.0)
+		label.modulate.a = fade_alpha
+		if fade_alpha <= 0.0:
+			label.visible = false
+			startFade = false
+			label2.visible = true
+			wave_info_t_imer_2.start()
+	elif startFade2:
+		var fade_alpha = clamp(label2.modulate.a - (delta / FADE_OUT_DURATION), 0.0, 1.0)
+		label2.modulate.a = fade_alpha
+		if fade_alpha <= 0.0:
+			label2.visible = false
+			startFade2 = false
+			spawn_enemies()
 	# Increment time_since_last_power_up by the time passed since the last frame
 	time_since_last_power_up += delta
 	# Check if 20 seconds have passed and there are no power-ups already in the container
@@ -216,3 +264,13 @@ func pause_game():
 func _on_power_ups_container_child_exiting_tree(_node):
 	# Reset the time_since_last_power_up
 	time_since_last_power_up = 0.0
+
+
+func _on_wave_info_timer_timeout():
+	wave_info_timer.stop()
+	startFade = true
+
+
+func _on_wave_info_t_imer_2_timeout():
+	wave_info_t_imer_2.stop()
+	startFade2 = true
