@@ -7,8 +7,8 @@ var attack_damage = 20
 var attack_damage2 = 25
 var attack_damage3 = 30
 const COMBO_TIME_LIMIT = 0.5
-const MAX_HEALTH = 1000
-var hitpoints = 1000
+const MAX_HEALTH = 200
+var hitpoints = 0
 
 # Player states
 var isAttacking = false
@@ -42,8 +42,17 @@ var comboResetTimer = 0
 @onready var attack_2_hitbox = $Hitbox/Attack2Hitbox
 @onready var attack_3_hitbox = $Hitbox/Attack3Hitbox
 
+@onready var healthbar = $Healthbar
+
+
+
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+
+func _ready():
+	hitpoints = MAX_HEALTH
+	healthbar.init_health(hitpoints)
+	
 
 
 # When player gets hit take damage.
@@ -52,6 +61,7 @@ func take_damage(damage):
 		isHurt = true
 		isIdle = false
 		hitpoints -= damage
+		healthbar.health = hitpoints
 	
 func add_attack_boost(attack_boost, duration):
 	attack_damage += attack_boost
@@ -69,6 +79,7 @@ func add_speed_boost(boost, duration):
 
 func add_max_health_boost():
 	hitpoints = MAX_HEALTH
+	healthbar.health = hitpoints
 
 func add_invincible_boost(duration):
 	power_up_duration = duration

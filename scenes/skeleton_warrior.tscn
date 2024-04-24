@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://d4h4eb0xht3rb"]
+[gd_scene load_steps=39 format=3 uid="uid://d4h4eb0xht3rb"]
 
 [ext_resource type="Texture2D" uid="uid://dwdwhsvaobd5l" path="res://assets/Skeleton_Warrior/Attack_1.png" id="1_genn0"]
 [ext_resource type="Script" path="res://scenes/skeleton_warrior.gd" id="1_u5ja1"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://c8f0nxo88ss47" path="res://assets/Skeleton_Warrior/Hurt.png" id="3_3qkaw"]
 [ext_resource type="Texture2D" uid="uid://clf4vvktbk67r" path="res://assets/Skeleton_Warrior/Idle.png" id="4_xkjxf"]
 [ext_resource type="Texture2D" uid="uid://vgdpd2xu0vex" path="res://assets/Skeleton_Warrior/Run.png" id="5_cgby7"]
+[ext_resource type="PackedScene" uid="uid://bfyjlkby1sw1l" path="res://scenes/healthbar.tscn" id="7_i4tbm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wbukr"]
 atlas = ExtResource("1_genn0")
@@ -226,6 +227,9 @@ size = Vector2(32, 75)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7jnvr"]
 size = Vector2(19, 46.5)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k0c8h"]
+bg_color = Color(0.827451, 0, 0, 1)
+
 [node name="SkeletonWarrior" type="CharacterBody2D"]
 position = Vector2(656, 270)
 script = ExtResource("1_u5ja1")
@@ -260,6 +264,13 @@ collision_layer = 16
 position = Vector2(56, -21.75)
 shape = SubResource("RectangleShape2D_7jnvr")
 disabled = true
+
+[node name="Healthbar" parent="." instance=ExtResource("7_i4tbm")]
+offset_left = -36.0
+offset_top = -47.0
+offset_right = 36.0
+offset_bottom = -37.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_k0c8h")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

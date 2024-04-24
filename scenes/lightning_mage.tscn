@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://c36a6kscmv5wb"]
+[gd_scene load_steps=55 format=3 uid="uid://c36a6kscmv5wb"]
 
 [ext_resource type="Script" path="res://scenes/lightning_mage.gd" id="1_heub5"]
 [ext_resource type="Texture2D" uid="uid://1cqg2x55bdw2" path="res://assets/Lightning Mage/Light_ball.png" id="1_jh8dt"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://clu7f5xvlw7o7" path="res://assets/Lightning Mage/Hurt.png" id="4_5slig"]
 [ext_resource type="Texture2D" uid="uid://bkeftpsmmtlaa" path="res://assets/Lightning Mage/Idle.png" id="5_uk8ch"]
 [ext_resource type="Texture2D" uid="uid://ct2qliur4ugls" path="res://assets/Lightning Mage/Walk.png" id="6_61lc0"]
+[ext_resource type="PackedScene" uid="uid://bfyjlkby1sw1l" path="res://scenes/healthbar.tscn" id="8_s6edm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yrcsd"]
 atlas = ExtResource("1_jh8dt")
@@ -337,6 +338,9 @@ size = Vector2(35, 85)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lxw4r"]
 size = Vector2(91, 36)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_54egf"]
+bg_color = Color(0.827451, 0, 0, 1)
+
 [node name="LightningMage" type="CharacterBody2D"]
 position = Vector2(483, 205)
 script = ExtResource("1_heub5")
@@ -372,6 +376,13 @@ shape = SubResource("RectangleShape2D_lxw4r")
 disabled = true
 
 [node name="Bullet" type="Node" parent="."]
+
+[node name="Healthbar" parent="." instance=ExtResource("8_s6edm")]
+offset_left = -52.0
+offset_top = -55.0
+offset_right = 20.0
+offset_bottom = -45.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_54egf")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

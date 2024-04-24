@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://diddg26ggv8fg"]
+[gd_scene load_steps=33 format=3 uid="uid://diddg26ggv8fg"]
 
 [ext_resource type="Texture2D" uid="uid://c6po4w33lgo08" path="res://assets/Knight_2/Idle.png" id="1_6c7bl"]
 [ext_resource type="Texture2D" uid="uid://3gbp3k68c53u" path="res://assets/Knight_2/Attack 2.png" id="1_iqi6j"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://b5g4fxxdndjys" path="res://assets/Knight_2/Dead.png" id="2_8r6bv"]
 [ext_resource type="Texture2D" uid="uid://c6i33ejkwo0jo" path="res://assets/Knight_2/Hurt.png" id="3_wvchy"]
 [ext_resource type="Texture2D" uid="uid://slow4g4jlfbl" path="res://assets/Knight_2/Run.png" id="5_cejw6"]
+[ext_resource type="PackedScene" uid="uid://bfyjlkby1sw1l" path="res://scenes/healthbar.tscn" id="7_807oe"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kfful"]
 atlas = ExtResource("1_iqi6j")
@@ -184,6 +185,9 @@ size = Vector2(52, 102)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_byisr"]
 size = Vector2(50, 86)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rmc8t"]
+bg_color = Color(0.827451, 0, 0, 1)
+
 [node name="KnightRed" type="CharacterBody2D"]
 position = Vector2(460, 163)
 script = ExtResource("1_q3y2d")
@@ -192,7 +196,7 @@ script = ExtResource("1_q3y2d")
 position = Vector2(0, 5.4)
 scale = Vector2(1.72, 1.585)
 sprite_frames = SubResource("SpriteFrames_h221x")
-animation = &"hurt"
+animation = &"idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
@@ -218,6 +222,13 @@ collision_layer = 16
 position = Vector2(52, 4)
 shape = SubResource("RectangleShape2D_byisr")
 disabled = true
+
+[node name="Healthbar" parent="." instance=ExtResource("7_807oe")]
+offset_left = -42.0
+offset_top = -52.0
+offset_right = 47.0
+offset_bottom = -42.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_rmc8t")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

@@ -6,6 +6,7 @@ extends CharacterBody2D
 @onready var enemy = $AnimatedSprite2D
 # Enemy attackBox
 @onready var attack_box = $Hitbox/AttackBox
+@onready var healthbar = $Healthbar
 
 # Enemy stats
 const SPEED = 200.0
@@ -26,11 +27,15 @@ var attack_timer = 0.0
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
+func _ready():
+	healthbar.init_health(hitpoints)
+
 # When enemy gets hit take damage.
 func take_damage(attack_damage):
 	prevState = state
 	state = EnemyState.HURT
 	hitpoints -= attack_damage
+	healthbar.health = hitpoints
 
 func _physics_process(delta):
 	# Set dying state

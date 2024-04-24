@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://colaw4bkehk6s"]
+[gd_scene load_steps=38 format=3 uid="uid://colaw4bkehk6s"]
 
 [ext_resource type="Texture2D" uid="uid://cllts5mnxcjl0" path="res://assets/Skeleton_Spearman/Attack_2.png" id="1_3jp28"]
 [ext_resource type="Script" path="res://scenes/skeleton_spear.gd" id="1_v5yio"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://ogem30haawoe" path="res://assets/Skeleton_Spearman/Hurt.png" id="3_lxkgg"]
 [ext_resource type="Texture2D" uid="uid://dqgly3v74yl35" path="res://assets/Skeleton_Spearman/Idle.png" id="4_i7ykh"]
 [ext_resource type="Texture2D" uid="uid://8xeq6vbinis6" path="res://assets/Skeleton_Spearman/Run.png" id="5_boeak"]
+[ext_resource type="PackedScene" uid="uid://bfyjlkby1sw1l" path="res://scenes/healthbar.tscn" id="7_lbyi7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8lajt"]
 atlas = ExtResource("1_3jp28")
@@ -219,6 +220,9 @@ size = Vector2(35, 85)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q4a8y"]
 size = Vector2(74, 14)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wyfil"]
+bg_color = Color(0.827451, 0, 0, 1)
+
 [node name="SkeletonSpear" type="CharacterBody2D"]
 position = Vector2(497, 176)
 script = ExtResource("1_v5yio")
@@ -252,6 +256,13 @@ collision_layer = 16
 position = Vector2(43, 14)
 shape = SubResource("RectangleShape2D_q4a8y")
 disabled = true
+
+[node name="Healthbar" parent="." instance=ExtResource("7_lbyi7")]
+offset_left = -30.0
+offset_top = -46.0
+offset_right = 59.0
+offset_bottom = -36.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_wyfil")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

@@ -20,6 +20,7 @@ extends Node
 
 
 const MENU_SCENE = preload("res://scenes/menu.tscn")
+const WAVE_INFO_SCENE = preload("res://scenes/wave_info.tscn")
 
 const POWER_UPS = [
 	preload("res://scenes/damage_boost.tscn"),
@@ -85,6 +86,7 @@ func reset():
 	current_niveau = 1
 	time_since_last_power_up = 0.0
 	score = 0
+	wave_info.visible = false
 	label.visible = false
 	label2.visible = false
 	startFade = false
@@ -98,10 +100,10 @@ func reset():
 		var child = power_ups_container.get_child(0)  # Get the first child
 		power_ups_container.remove_child(child)       # Remove the child from the parent node
 		child.queue_free()
-	player.hitpoints = 1000
 	player.remove_speed_boost()
 	player.remove_invincible_boost()
 	player.remove_attack_boost()
+	player._ready()
 	_ready()
 	
 
@@ -114,10 +116,10 @@ func start_wave():
 	update_wave_info()  # Update the wave information before spawning enemies
 	# Start the wave info timer
 	wave_info_timer.start()
-	label.visible = true
 	
 # Function to update the wave information text
 func update_wave_info():
+	wave_info.visible = true
 	label.modulate.a = 1.0  # Reset the alpha value when updating text
 	label2.modulate.a = 1.0  # Reset the alpha value when updating text
 	# Show the WaveInfo object and update its text label
@@ -162,8 +164,8 @@ func spawn_enemies():
 		# Defining the x-ranges
 		var minRight = player.global_position.x + 600
 		var minLeft = player.global_position.x - 600
-		var maxRight = 2890
-		var maxLeft = -870
+		var maxRight = 2850
+		var maxLeft = -850
 		
 		# Ensure minLeft and minRight do not exceed maxLeft and maxRight
 		if minLeft < maxLeft:
@@ -233,6 +235,7 @@ func _physics_process(delta):
 		if fade_alpha <= 0.0:
 			label2.visible = false
 			startFade2 = false
+			wave_info.visible = false
 			spawn_enemies()
 	# Increment time_since_last_power_up by the time passed since the last frame
 	time_since_last_power_up += delta

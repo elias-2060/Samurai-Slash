@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://hw1gugln3lr1"]
+[gd_scene load_steps=40 format=3 uid="uid://hw1gugln3lr1"]
 
 [ext_resource type="Script" path="res://scenes/wolf_enemy_red.gd" id="1_0p8uh"]
 [ext_resource type="Texture2D" uid="uid://480na4lqi4bj" path="res://assets/Red_Werewolf/Run+Attack.png" id="1_w8f67"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://j3cakf51k4nj" path="res://assets/Red_Werewolf/Hurt.png" id="3_kugpa"]
 [ext_resource type="Texture2D" uid="uid://c6a6fyqx72ahc" path="res://assets/Red_Werewolf/Idle.png" id="4_7lxvs"]
 [ext_resource type="Texture2D" uid="uid://cikb4siga6yf3" path="res://assets/Red_Werewolf/Run.png" id="5_frx1b"]
+[ext_resource type="PackedScene" uid="uid://bfyjlkby1sw1l" path="res://scenes/healthbar.tscn" id="7_8p86o"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hap8r"]
 atlas = ExtResource("1_w8f67")
@@ -233,6 +234,9 @@ size = Vector2(110, 95)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f0m3m"]
 size = Vector2(14, 74)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e2eju"]
+bg_color = Color(0.827451, 0, 0, 1)
+
 [node name="WolfEnemyRed" type="CharacterBody2D"]
 position = Vector2(526, 196)
 script = ExtResource("1_0p8uh")
@@ -266,6 +270,13 @@ collision_layer = 16
 position = Vector2(77, 3)
 shape = SubResource("RectangleShape2D_f0m3m")
 disabled = true
+
+[node name="Healthbar" parent="." instance=ExtResource("7_8p86o")]
+offset_left = -30.0
+offset_top = -46.0
+offset_right = 59.0
+offset_bottom = -36.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_e2eju")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

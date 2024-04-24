@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://vh2llvswmww3"]
+[gd_scene load_steps=40 format=3 uid="uid://vh2llvswmww3"]
 
 [ext_resource type="Script" path="res://scenes/wolf_enemy.gd" id="1_geyuy"]
 [ext_resource type="Texture2D" uid="uid://boq55rhrkna6c" path="res://assets/Black_Werewolf/Idle.png" id="1_o38in"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://c54dn828t0kn3" path="res://assets/Black_Werewolf/Dead.png" id="3_qfy43"]
 [ext_resource type="Texture2D" uid="uid://dbifch3hui5cd" path="res://assets/Black_Werewolf/Run.png" id="3_vnre3"]
 [ext_resource type="Texture2D" uid="uid://da8dyjrjj6q33" path="res://assets/Black_Werewolf/Hurt.png" id="4_lcjuu"]
+[ext_resource type="PackedScene" uid="uid://bfyjlkby1sw1l" path="res://scenes/healthbar.tscn" id="7_2r8y0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wm7c1"]
 atlas = ExtResource("2_08ej0")
@@ -233,6 +234,9 @@ size = Vector2(131, 101)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mxr4t"]
 size = Vector2(14, 96)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oae2w"]
+bg_color = Color(0.827451, 0, 0, 1)
+
 [node name="WolfEnemy" type="CharacterBody2D"]
 position = Vector2(669, 201)
 script = ExtResource("1_geyuy")
@@ -268,6 +272,13 @@ collision_layer = 16
 position = Vector2(77, 4)
 shape = SubResource("RectangleShape2D_mxr4t")
 disabled = true
+
+[node name="Healthbar" parent="." instance=ExtResource("7_2r8y0")]
+offset_left = -30.0
+offset_top = -46.0
+offset_right = 59.0
+offset_bottom = -36.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_oae2w")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

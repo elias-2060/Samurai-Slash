@@ -1,7 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://bx82lfadxtl6e"]
+[gd_scene load_steps=3 format=3 uid="uid://bx82lfadxtl6e"]
+
+[ext_resource type="Script" path="res://scenes/wave_info.gd" id="1_uv85m"]
 
 [sub_resource type="SystemFont" id="SystemFont_4lv15"]
 font_names = PackedStringArray("Impact")
+subpixel_positioning = 0
 
 [node name="WaveInfo" type="Control"]
 layout_mode = 3
@@ -10,6 +13,7 @@ offset_left = 153.0
 offset_top = 157.0
 offset_right = 1125.0
 offset_bottom = 616.0
+script = ExtResource("1_uv85m")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 0
@@ -30,6 +34,7 @@ alignment = 1
 layout_mode = 2
 
 [node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(500, 100)
 layout_mode = 2
 theme_override_fonts/font = SubResource("SystemFont_4lv15")

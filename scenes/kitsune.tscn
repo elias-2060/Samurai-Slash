@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://di7nqpcwudukg"]
+[gd_scene load_steps=61 format=3 uid="uid://di7nqpcwudukg"]
 
 [ext_resource type="Script" path="res://scenes/kitsune.gd" id="1_gakyk"]
 [ext_resource type="Texture2D" uid="uid://7bb43hcbuh0k" path="res://assets/Kitsune/Attack_1.png" id="1_vq042"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://cjivdh0v63d6r" path="res://assets/Kitsune/Hurt.png" id="4_muufc"]
 [ext_resource type="Texture2D" uid="uid://bafsfio61otwj" path="res://assets/Kitsune/Idle.png" id="5_loura"]
 [ext_resource type="Texture2D" uid="uid://o6lutldf3fmn" path="res://assets/Kitsune/Walk.png" id="6_1uyni"]
+[ext_resource type="PackedScene" uid="uid://bfyjlkby1sw1l" path="res://scenes/healthbar.tscn" id="8_ma4xb"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_aipwp"]
 atlas = ExtResource("2_ytmmm")
@@ -379,6 +380,9 @@ size = Vector2(31, 90)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_efsop"]
 size = Vector2(41, 50)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uv27w"]
+bg_color = Color(0.827451, 0, 0, 1)
+
 [node name="Kitsune" type="CharacterBody2D"]
 position = Vector2(502, 216)
 script = ExtResource("1_gakyk")
@@ -386,7 +390,9 @@ script = ExtResource("1_gakyk")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(1.25, 1.318)
 sprite_frames = SubResource("SpriteFrames_4gr36")
-animation = &"hurt"
+animation = &"walking"
+frame = 7
+frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
@@ -414,6 +420,13 @@ shape = SubResource("RectangleShape2D_efsop")
 disabled = true
 
 [node name="Bullet" type="Node" parent="."]
+
+[node name="Healthbar" parent="." instance=ExtResource("8_ma4xb")]
+offset_left = -41.0
+offset_top = -56.0
+offset_right = 37.0
+offset_bottom = -46.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_uv27w")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

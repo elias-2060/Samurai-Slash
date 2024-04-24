@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://bod85rxwuwh41"]
+[gd_scene load_steps=33 format=3 uid="uid://bod85rxwuwh41"]
 
 [ext_resource type="Script" path="res://scenes/knight_white.gd" id="1_ikgyv"]
 [ext_resource type="Texture2D" uid="uid://dm1qt70h43tvp" path="res://assets/Knight_1/Attack 2.png" id="1_nvdy1"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://xl00y0dc6x3g" path="res://assets/Knight_1/Hurt.png" id="3_av88j"]
 [ext_resource type="Texture2D" uid="uid://b2iinj7ohehyp" path="res://assets/Knight_1/Idle.png" id="4_k3rks"]
 [ext_resource type="Texture2D" uid="uid://dv6ha357pwr1j" path="res://assets/Knight_1/Run.png" id="5_q11qa"]
+[ext_resource type="PackedScene" uid="uid://bfyjlkby1sw1l" path="res://scenes/healthbar.tscn" id="7_r0fig"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4isoh"]
 atlas = ExtResource("1_nvdy1")
@@ -184,6 +185,9 @@ size = Vector2(50, 98)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hi73y"]
 size = Vector2(50, 83)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vhkl2"]
+bg_color = Color(0.827451, 0, 0, 1)
+
 [node name="KnightWhite" type="CharacterBody2D"]
 position = Vector2(463, 183)
 script = ExtResource("1_ikgyv")
@@ -191,7 +195,7 @@ script = ExtResource("1_ikgyv")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(1.72049, 1.52535)
 sprite_frames = SubResource("SpriteFrames_vsrds")
-animation = &"hurt"
+animation = &"idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
@@ -217,6 +221,13 @@ collision_layer = 16
 position = Vector2(53, -1.5)
 shape = SubResource("RectangleShape2D_hi73y")
 disabled = true
+
+[node name="Healthbar" parent="." instance=ExtResource("7_r0fig")]
+offset_left = -41.0
+offset_top = -57.0
+offset_right = 48.0
+offset_bottom = -47.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_vhkl2")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

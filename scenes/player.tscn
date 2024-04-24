@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=3 uid="uid://dc7mr7kd5gc3c"]
+[gd_scene load_steps=64 format=3 uid="uid://dc7mr7kd5gc3c"]
 
 [ext_resource type="Script" path="res://scenes/player.gd" id="1_imceo"]
 [ext_resource type="Texture2D" uid="uid://ch8mtimser8bm" path="res://assets/Samurai/Attack_1.png" id="2_m0q7q"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://pupr7cg5pu01" path="res://assets/Samurai/Jump.png" id="7_wphkr"]
 [ext_resource type="Texture2D" uid="uid://bo0k8rxeqm8l3" path="res://assets/Samurai/Dead.png" id="8_tqrf3"]
 [ext_resource type="Texture2D" uid="uid://dtc72ha66cfv7" path="res://assets/Samurai/Run.png" id="9_s2tj7"]
+[ext_resource type="PackedScene" uid="uid://bfyjlkby1sw1l" path="res://scenes/healthbar.tscn" id="10_lq6qf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_t5oih"]
 atlas = ExtResource("2_m0q7q")
@@ -465,6 +466,12 @@ libraries = {
 "": SubResource("AnimationLibrary_j6yg0")
 }
 speed_scale = 1.5
+
+[node name="Healthbar" parent="." instance=ExtResource("10_lq6qf")]
+offset_left = -43.0
+offset_top = -42.0
+offset_right = 46.0
+offset_bottom = -32.0
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
