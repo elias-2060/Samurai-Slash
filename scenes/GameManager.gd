@@ -18,7 +18,6 @@ extends Node
 @onready var wave_info_timer = $"../WaveInfoTimer"
 @onready var wave_info_t_imer_2 = $"../WaveInfoTImer2"
 
-
 const MENU_SCENE = preload("res://scenes/menu.tscn")
 const WAVE_INFO_SCENE = preload("res://scenes/wave_info.tscn")
 
@@ -64,18 +63,19 @@ var current_niveau = 1 # Initial niveau
 var enemies_by_niveau = [] # Array to hold enemies based on their niveau
 var power_up_spawn_timer # Timer for spawning power-ups
 var time_since_last_power_up = 0.0 # Variable to track time elapsed for power-up spawning
-const POWER_UP_TIMER = 5.0 # Variable to define the time before the power up spawns
+const POWER_UP_TIMER = 15.0 # Variable to define the time before the power up spawns
 const playerPos = Vector2(1160,258)
 var restart = false
 var score = 0
 var highscore = 0
-const FADE_OUT_DURATION = 2.0  # Define the fade-out duration in seconds
+const FADE_OUT_DURATION = 1.0  # Define the fade-out duration in seconds
 var startFade = false
 var startFade2 = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	player.global_position = playerPos
+	wave_info._ready()
 	start_wave()
  
 func reset():

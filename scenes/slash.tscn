@@ -2766,7 +2766,7 @@ layer_0/tile_data = PackedInt32Array(1179648, 1572864, 23, 1179649, 1638400, 23,
 
 [node name="Player" parent="." instance=ExtResource("3_mrk1n")]
 z_index = 10
-position = Vector2(1191, 509)
+position = Vector2(1230, 510)
 collision_mask = 4
 
 [node name="GameManager" type="Node" parent="."]
@@ -2786,7 +2786,6 @@ offset_right = 1105.0
 offset_bottom = 85.0
 
 [node name="WaveInfoTimer" type="Timer" parent="."]
-wait_time = 2.0
 
 [node name="WaveInfoTImer2" type="Timer" parent="."]
 

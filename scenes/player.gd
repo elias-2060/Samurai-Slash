@@ -29,7 +29,6 @@ var attackAnimationFinished = true
 var comboCount = 0
 var comboResetTimer = 0
 
-
 # Player object
 @onready var player = $AnimatedSprite2D
 # Camera object
@@ -43,6 +42,10 @@ var comboResetTimer = 0
 @onready var attack_3_hitbox = $Hitbox/Attack3Hitbox
 
 @onready var healthbar = $Healthbar
+# Boost objects
+@onready var damage_boost_object = $BoostMenu/HBoxContainer/damageBoost
+@onready var speed_boost_object = $BoostMenu/HBoxContainer/speedBoost
+@onready var invincibility_boost_object = $BoostMenu/HBoxContainer/invincibilityBoost
 
 
 
@@ -52,7 +55,6 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 func _ready():
 	hitpoints = MAX_HEALTH
 	healthbar.init_health(hitpoints)
-	
 
 
 # When player gets hit take damage.
@@ -105,6 +107,21 @@ func remove_attack_boost():
 	
 
 func _physics_process(delta):
+	# show the boost in the menu if it is active
+	if damage_boost:
+		damage_boost_object.visible = true
+	else:
+		damage_boost_object.visible = false
+		
+	if speed_boost:
+		speed_boost_object.visible = true
+	else:
+		speed_boost_object.visible = false
+		
+	if invincible_boost:
+		invincibility_boost_object.visible = true
+	else:
+		invincibility_boost_object.visible = false
 	# make the player invincible if he has the boost
 	if invincible_boost:
 		animation_player.play("invincible")
