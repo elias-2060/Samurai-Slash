@@ -23,6 +23,7 @@ const HEIGHTLEFT = 15
 const HEIGHTRIGHT = 5
 const ATTACKTIME = 0.67
 const ATTACK_DAMAGE = 20
+const score = 40
 
 # Enemy states
 enum EnemyState { IDLE, CHASING, ATTACKING, ATTACKING2, HURT, DYING, DEAD }

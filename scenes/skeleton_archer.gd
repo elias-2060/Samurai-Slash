@@ -23,6 +23,7 @@ const IDLE_TIME = 1.5
 const HEIGHT = 13
 const ATTACKTIME = 0.3
 const ATTACK_DAMAGE = 5
+const score = 20
 
 # Enemy states
 enum EnemyState { IDLE, CHASING, ATTACKING, ATTACKING2, HURT, DYING, DEAD }

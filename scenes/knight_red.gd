@@ -16,6 +16,7 @@ var hitpoints = 175
 const ATTACK_RANGE = 65
 const IDLE_TIME = 1
 const ATTACKTIME = 0.35
+const score = 60
 
 # Enemy states
 enum EnemyState { IDLE, CHASING, ATTACKING, HURT, DYING, DEAD }

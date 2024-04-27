@@ -16,6 +16,7 @@ var hitpoints = 50
 const ATTACK_RANGE = 50
 const IDLE_TIME = 5
 const ATTACKTIME = 0.2
+const score = 40
 
 
 # Enemy states

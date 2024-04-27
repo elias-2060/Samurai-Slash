@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://dweik3yhpubbd"]
+[gd_scene load_steps=6 format=3 uid="uid://dweik3yhpubbd"]
 
 [ext_resource type="Texture2D" uid="uid://wupesv7pu3cb" path="res://assets/background.jpg" id="1_88r7c"]
 [ext_resource type="Script" path="res://scenes/game_menu.gd" id="1_noeed"]
+[ext_resource type="PackedScene" uid="uid://djq4tpvnsgpfi" path="res://scenes/score_info.tscn" id="3_rr7dj"]
 
 [sub_resource type="SystemFont" id="SystemFont_vcw5b"]
 font_names = PackedStringArray("Impact")
@@ -90,6 +91,16 @@ theme_override_fonts/font = SubResource("SystemFont_uypo8")
 theme_override_font_sizes/font_size = 24
 text = "Quit Game
 "
+
+[node name="ScoreInfo" parent="." instance=ExtResource("3_rr7dj")]
+visible = false
+layout_mode = 1
+anchor_right = 0.299
+anchor_bottom = 0.032
+offset_left = 241.04
+offset_top = 42.72
+offset_right = 255.384
+offset_bottom = 47.328
 
 [connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]

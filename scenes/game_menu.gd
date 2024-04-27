@@ -1,6 +1,7 @@
 extends Control
 
 const GAME_SCENE = preload("res://scenes/slash.tscn")
+var highScore
 
 
 func _on_start_pressed():

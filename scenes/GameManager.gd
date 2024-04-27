@@ -17,6 +17,7 @@ extends Node
 # WaveInfoTimer object
 @onready var wave_info_timer = $"../WaveInfoTimer"
 @onready var wave_info_t_imer_2 = $"../WaveInfoTImer2"
+@onready var score_info = $"../Player/ScoreInfo/HBoxContainer/Label"
 
 const MENU_SCENE = preload("res://scenes/menu.tscn")
 const WAVE_INFO_SCENE = preload("res://scenes/wave_info.tscn")
@@ -66,7 +67,7 @@ var time_since_last_power_up = 0.0 # Variable to track time elapsed for power-up
 const POWER_UP_TIMER = 15.0 # Variable to define the time before the power up spawns
 const playerPos = Vector2(1160,258)
 var restart = false
-var score = 0
+var score
 var highscore = 0
 const FADE_OUT_DURATION = 1.0  # Define the fade-out duration in seconds
 var startFade = false
@@ -74,6 +75,7 @@ var startFade2 = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	score = 0
 	player.global_position = playerPos
 	wave_info._ready()
 	start_wave()
@@ -85,7 +87,6 @@ func reset():
 	wave_enemy_limit = 1
 	current_niveau = 1
 	time_since_last_power_up = 0.0
-	score = 0
 	wave_info.visible = false
 	label.visible = false
 	label2.visible = false
@@ -216,11 +217,13 @@ func check_wave_completed():
 		start_wave()
 
 # Called when an enemy is defeated
-func _on_enemys_child_exiting_tree(_node):
+func _on_enemys_child_exiting_tree(node):
+	score += node.score
 	enemies_left_in_wave -= 1
 	check_wave_completed()
 
 func _physics_process(delta):
+	score_info.text = "Score: " + str(score)
 	if startFade:
 		var fade_alpha = clamp(label.modulate.a - (delta / FADE_OUT_DURATION), 0.0, 1.0)
 		label.modulate.a = fade_alpha
