@@ -72,9 +72,13 @@ var highscore = 0
 const FADE_OUT_DURATION = 1.0  # Define the fade-out duration in seconds
 var startFade = false
 var startFade2 = false
+var maxEnemy = 5
+var spawnEnemies = false
+var enemyCount = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	restart = false
 	score = 0
 	player.global_position = playerPos
 	wave_info._ready()
@@ -82,6 +86,7 @@ func _ready():
  
 func reset():
 	restart = true
+	spawnEnemies = false
 	current_wave = 0
 	enemies_left_in_wave = 0
 	wave_enemy_limit = 1
@@ -113,6 +118,7 @@ func start_wave():
 	current_wave += 1
 	wave_enemy_limit += current_niveau
 	enemies_left_in_wave = wave_enemy_limit
+	enemyCount = enemies_left_in_wave
 	update_niveau()
 	update_wave_info()  # Update the wave information before spawning enemies
 	# Start the wave info timer
@@ -148,40 +154,39 @@ func update_niveau():
 		4: enemies_by_niveau = [NIVEAU_ONE, NIVEAU_TWO, NIVEAU_THREE, NIVEAU_FOUR]
 
 # Spawn enemies for the current wave
-# Spawn enemies for the current wave
-func spawn_enemies():
-	for i in range(enemies_left_in_wave):
-		# Selecting the niveau based on weighted probability
-		var enemy_type = choose_enemy_type()
-		var enemy = enemy_type.instantiate()
+func spawn_enemy():
+	# Selecting the niveau based on weighted probability
+	var enemy_type = choose_enemy_type()
+	var enemy = enemy_type.instantiate()
 		
-		# Set collision layer and mask
-		enemy.collision_layer = 0b10 # Layer 2
-		enemy.collision_mask = 0b100 # Mask 3
+	# Set collision layer and mask
+	enemy.collision_layer = 0b10 # Layer 2
+	enemy.collision_mask = 0b100 # Mask 3
 		
-		# Set the enemy position
-		enemy.global_position.y = player.global_position.y
+	# Set the enemy position
+	enemy.global_position.y = player.global_position.y
 		
-		# Defining the x-ranges
-		var minRight = player.global_position.x + 600
-		var minLeft = player.global_position.x - 600
-		var maxRight = 2850
-		var maxLeft = -850
+	# Defining the x-ranges
+	var minRight = player.global_position.x + 600
+	var minLeft = player.global_position.x - 600
+	var maxRight = 2850
+	var maxLeft = -850
 		
-		# Ensure minLeft and minRight do not exceed maxLeft and maxRight
-		if minLeft < maxLeft:
-			minLeft = maxLeft
-		if minRight > maxRight:
-			minRight = maxRight
+	# Ensure minLeft and minRight do not exceed maxLeft and maxRight
+	if minLeft < maxLeft:
+		minLeft = maxLeft
+	if minRight > maxRight:
+		minRight = maxRight
 		
-		# Randomize x-position within specified ranges
-		if randi() % 2 == 0:
-			enemy.global_position.x = randf_range(minLeft, maxLeft)
-		else:
-			enemy.global_position.x = randf_range(minRight, maxRight)
+	# Randomize x-position within specified ranges
+	if randi() % 2 == 0:
+		enemy.global_position.x = randf_range(minLeft, maxLeft)
+	else:
+		enemy.global_position.x = randf_range(minRight, maxRight)
 		
-		# Add the enemy to the scene
-		enemy_s_container.add_child.call_deferred(enemy)
+	# Add the enemy to the scene
+	enemy_s_container.add_child.call_deferred(enemy)
+	enemyCount -= 1
 
 # Helper function to choose enemy type with higher probability for the current niveau
 func choose_enemy_type() -> PackedScene:
@@ -214,6 +219,7 @@ func spawn_power_up():
 # Check if all enemies in the wave are defeated
 func check_wave_completed():
 	if enemies_left_in_wave <= 0 and restart == false:
+		spawnEnemies = false
 		start_wave()
 
 # Called when an enemy is defeated
@@ -239,7 +245,7 @@ func _physics_process(delta):
 			label2.visible = false
 			startFade2 = false
 			wave_info.visible = false
-			spawn_enemies()
+			spawnEnemies = true
 	# Increment time_since_last_power_up by the time passed since the last frame
 	time_since_last_power_up += delta
 	# Check if 20 seconds have passed and there are no power-ups already in the container
@@ -249,6 +255,8 @@ func _physics_process(delta):
 	
 	if Input.is_action_just_pressed("escape"):
 		pause_game()
+	if spawnEnemies and enemy_s_container.get_child_count() < maxEnemy and enemyCount > 0:
+		spawn_enemy()
 
 func pause_game():
 	# Pause any game processes (e.g., physics, animations)
@@ -260,10 +268,10 @@ func pause_game():
 	menu_instance.global_position.x = player.global_position.x - 35
 	menu_instance.global_position.y = player.global_position.y - 300
 	
-	# Add the menu as a child of the root viewport
-	get_tree().get_root().add_child(menu_instance)
 	
 	menu_instance.game_manager = game_manager_object
+	# Add the menu as a child of the root viewport
+	get_tree().get_root().add_child(menu_instance)
 		
 
 

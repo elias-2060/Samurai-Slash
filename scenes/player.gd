@@ -24,6 +24,8 @@ var damage_boost = false
 var speed_boost = false
 var invincible_boost = false
 var attackAnimationFinished = true
+var isGrounded
+
 
 # Combo Attack
 var comboCount = 0
@@ -46,6 +48,7 @@ var comboResetTimer = 0
 @onready var damage_boost_object = $BoostMenu/HBoxContainer/damageBoost
 @onready var speed_boost_object = $BoostMenu/HBoxContainer/speedBoost
 @onready var invincibility_boost_object = $BoostMenu/HBoxContainer/invincibilityBoost
+@onready var dust = $Dust
 
 
 
@@ -107,6 +110,12 @@ func remove_attack_boost():
 	
 
 func _physics_process(delta):
+	# Play dust animation when player lands
+	if isGrounded == false and is_on_floor() == true:
+		dust.visible = true
+		dust.play("dust")
+		
+	isGrounded = is_on_floor()
 	# show the boost in the menu if it is active
 	if damage_boost:
 		damage_boost_object.visible = true
@@ -190,7 +199,6 @@ func _physics_process(delta):
 				comboCount = 1 # Reset combo if exceeds max combo count
 		comboResetTimer = COMBO_TIME_LIMIT
 		isAttacking = true
-
 	# Update combo reset timer
 	if comboResetTimer > 0:
 		comboResetTimer -= delta
@@ -244,3 +252,7 @@ func _on_animated_sprite_2d_animation_finished():
 func _on_hurtbox_area_entered(area):
 	var enemy = area.get_parent()
 	take_damage(enemy.ATTACK_DAMAGE)
+
+
+func _on_dust_animation_finished():
+	dust.visible = false

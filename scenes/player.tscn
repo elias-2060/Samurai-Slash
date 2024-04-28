@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=3 uid="uid://dc7mr7kd5gc3c"]
+[gd_scene load_steps=72 format=3 uid="uid://dc7mr7kd5gc3c"]
 
 [ext_resource type="Script" path="res://scenes/player.gd" id="1_imceo"]
 [ext_resource type="Texture2D" uid="uid://ch8mtimser8bm" path="res://assets/Samurai/Attack_1.png" id="2_m0q7q"]
@@ -13,6 +13,10 @@
 [ext_resource type="PackedScene" uid="uid://da1eorapronnl" path="res://scenes/boost_menu.tscn" id="11_u18uy"]
 [ext_resource type="PackedScene" uid="uid://djq4tpvnsgpfi" path="res://scenes/score_info.tscn" id="12_yrtj1"]
 [ext_resource type="Script" path="res://scenes/score_info.gd" id="13_xkisy"]
+[ext_resource type="Texture2D" uid="uid://b1y6aldoay3la" path="res://assets/Dust_effect/dust1.png" id="14_ubvt2"]
+[ext_resource type="Texture2D" uid="uid://d1lpycxyvqro5" path="res://assets/Dust_effect/dust2.png" id="15_xt35t"]
+[ext_resource type="Texture2D" uid="uid://d0kpms22g6cin" path="res://assets/Dust_effect/dust3.png" id="16_xbtc8"]
+[ext_resource type="Texture2D" uid="uid://w2ib1dn2m2nd" path="res://assets/Dust_effect/dust4.png" id="17_7hdl7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_t5oih"]
 atlas = ExtResource("2_m0q7q")
@@ -407,6 +411,26 @@ _data = {
 "invincible": SubResource("Animation_f8hta")
 }
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_1d3lb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("14_ubvt2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_xt35t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_xbtc8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_7hdl7")
+}],
+"loop": false,
+"name": &"dust",
+"speed": 12.0
+}]
+
 [node name="Player" type="CharacterBody2D"]
 position = Vector2(648, 583)
 collision_mask = 0
@@ -491,5 +515,15 @@ offset_right = -403.0
 offset_bottom = -469.0
 script = ExtResource("13_xkisy")
 
+[node name="Dust" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(1, 52)
+scale = Vector2(3.625, 2.3125)
+sprite_frames = SubResource("SpriteFrames_1d3lb")
+animation = &"dust"
+frame = 3
+frame_progress = 1.0
+
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
+[connection signal="animation_finished" from="Dust" to="." method="_on_dust_animation_finished"]
