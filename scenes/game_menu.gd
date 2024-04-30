@@ -1,6 +1,6 @@
 extends Control
 
-const GAME_SCENE = preload("res://scenes/slash.tscn")
+const GAME_SCENE = preload("res://scenes/samurai_slash.tscn")
 var highScore
 
 
