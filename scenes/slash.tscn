@@ -2772,9 +2772,9 @@ collision_mask = 4
 [node name="GameManager" type="Node" parent="."]
 script = ExtResource("4_3pvj1")
 
-[node name="Enemy\'sContainer" type="Node" parent="."]
+[node name="Enemy\'sContainer" type="Node2D" parent="."]
 
-[node name="PowerUpsContainer" type="Node" parent="."]
+[node name="PowerUpsContainer" type="Node2D" parent="."]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_fwoi8")

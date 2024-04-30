@@ -60,6 +60,14 @@ func _ready():
 	healthbar.init_health(hitpoints)
 
 
+func reset():
+	isDead = false
+	isDying = false
+	remove_speed_boost()
+	remove_invincible_boost()
+	remove_attack_boost()
+	_ready()
+	
 # When player gets hit take damage.
 func take_damage(damage):
 	if !invincible_boost:

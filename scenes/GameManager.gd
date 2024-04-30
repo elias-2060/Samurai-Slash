@@ -20,6 +20,7 @@ extends Node
 @onready var score_info = $"../Player/ScoreInfo/HBoxContainer/Label"
 
 const MENU_SCENE = preload("res://scenes/menu.tscn")
+const DEAD_MENU_SCENE = preload("res://scenes/dead_menu.tscn")
 const WAVE_INFO_SCENE = preload("res://scenes/wave_info.tscn")
 
 const POWER_UPS = [
@@ -75,10 +76,14 @@ var startFade2 = false
 var maxEnemy = 5
 var spawnEnemies = false
 var enemyCount = 0
+var menu_instance
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	restart = false
+	player.visible = true
+	enemy_s_container.visible = true
+	power_ups_container.visible = true
 	score = 0
 	player.global_position = playerPos
 	wave_info._ready()
@@ -106,10 +111,7 @@ func reset():
 		var child = power_ups_container.get_child(0)  # Get the first child
 		power_ups_container.remove_child(child)       # Remove the child from the parent node
 		child.queue_free()
-	player.remove_speed_boost()
-	player.remove_invincible_boost()
-	player.remove_attack_boost()
-	player._ready()
+	player.reset()
 	_ready()
 	
 
@@ -253,17 +255,41 @@ func _physics_process(delta):
 		# Spawn a power-up
 		spawn_power_up()
 	
+	if player.isDead:
+		end_game()
+		
+	
 	if Input.is_action_just_pressed("escape"):
 		pause_game()
 	if spawnEnemies and enemy_s_container.get_child_count() < maxEnemy and enemyCount > 0:
 		spawn_enemy()
+		
+func end_game():
+	get_tree().paused = true
+	enemy_s_container.visible = false
+	power_ups_container.visible = false
+	player.visible = false
+	
+	# Load and instance the menu scene
+	menu_instance = DEAD_MENU_SCENE.instantiate()
+	
+	menu_instance.global_position.x = player.global_position.x - 35
+	menu_instance.global_position.y = player.global_position.y - 300
+	
+	
+	menu_instance.game_manager = game_manager_object
+	menu_instance.score = score
+	
+	# Add the menu as a child of the root viewport
+	get_tree().get_root().add_child(menu_instance)
+
 
 func pause_game():
 	# Pause any game processes (e.g., physics, animations)
 	get_tree().paused = true
 	
 	# Load and instance the menu scene
-	var menu_instance = MENU_SCENE.instantiate()
+	menu_instance = MENU_SCENE.instantiate()
 	
 	menu_instance.global_position.x = player.global_position.x - 35
 	menu_instance.global_position.y = player.global_position.y - 300
