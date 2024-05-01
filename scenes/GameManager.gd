@@ -66,7 +66,7 @@ var enemies_by_niveau = [] # Array to hold enemies based on their niveau
 var power_up_spawn_timer # Timer for spawning power-ups
 var time_since_last_power_up = 0.0 # Variable to track time elapsed for power-up spawning
 const POWER_UP_TIMER = 15.0 # Variable to define the time before the power up spawns
-const playerPos = Vector2(1160,258)
+const playerPos = Vector2(1160,509.7198)
 var restart = false
 var score
 var highscore = 0
@@ -86,7 +86,6 @@ func _ready():
 	power_ups_container.visible = true
 	score = 0
 	player.global_position = playerPos
-	wave_info._ready()
 	start_wave()
  
 func reset():

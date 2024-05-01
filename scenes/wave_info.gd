@@ -2,11 +2,6 @@ extends Control
 
 @onready var player = $"../Player"
 
-func _ready():
-	position.x = player.global_position.x -400
-	position.y = player.global_position.y -200
-
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	if !visible:

@@ -254,7 +254,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"attack",
-"speed": 10.0
+"speed": 13.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -397,7 +397,9 @@ script = ExtResource("1_hg7nv")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(1.25, 1.318)
 sprite_frames = SubResource("SpriteFrames_ta5t3")
-animation = &"idle"
+animation = &"attack"
+frame = 15
+frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false

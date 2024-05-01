@@ -49,6 +49,7 @@ var comboResetTimer = 0
 @onready var speed_boost_object = $BoostMenu/HBoxContainer/speedBoost
 @onready var invincibility_boost_object = $BoostMenu/HBoxContainer/invincibilityBoost
 @onready var dust = $Dust
+@onready var score_info = $ScoreInfo
 
 
 
@@ -58,7 +59,6 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 func _ready():
 	hitpoints = MAX_HEALTH
 	healthbar.init_health(hitpoints)
-
 
 func reset():
 	isDead = false
@@ -216,7 +216,7 @@ func _physics_process(delta):
 
 	# Get the input direction and handle the movement/deceleration.
 	var direction = Input.get_action_strength("right") - Input.get_action_strength("left")
-	if direction:
+	if direction and !isDying:
 		velocity.x = direction * speed
 	else:
 		velocity.x = move_toward(velocity.x, 0, 25)
