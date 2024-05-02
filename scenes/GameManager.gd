@@ -18,6 +18,7 @@ extends Node
 @onready var wave_info_timer = $"../WaveInfoTimer"
 @onready var wave_info_t_imer_2 = $"../WaveInfoTImer2"
 @onready var score_info = $"../Player/ScoreInfo/HBoxContainer/Label"
+@onready var audio_stream_player = $"../AudioStreamPlayer"
 
 const MENU_SCENE = preload("res://scenes/menu.tscn")
 const DEAD_MENU_SCENE = preload("res://scenes/dead_menu.tscn")
@@ -86,6 +87,7 @@ func _ready():
 	power_ups_container.visible = true
 	score = 0
 	player.global_position = playerPos
+	restartAudio()
 	start_wave()
  
 func reset():
@@ -113,6 +115,9 @@ func reset():
 	player.reset()
 	_ready()
 	
+func restartAudio():
+	audio_stream_player.stop()   # Stop the audio player
+	audio_stream_player.play()   # Play the audio player from the beginning
 
 # Start a new wave
 func start_wave():
