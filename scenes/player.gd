@@ -24,7 +24,7 @@ var damage_boost = false
 var speed_boost = false
 var invincible_boost = false
 var attackAnimationFinished = true
-var isGrounded
+var isGrounded = true
 
 
 # Combo Attack
@@ -50,6 +50,12 @@ var comboResetTimer = 0
 @onready var invincibility_boost_object = $BoostMenu/HBoxContainer/invincibilityBoost
 @onready var dust = $Dust
 @onready var score_info = $ScoreInfo
+@onready var hurt_sound = $SoundEffects/HurtSound
+@onready var sword_swing = $SoundEffects/SwordSwing
+@onready var running_sound = $SoundEffects/RunningSound
+@onready var landing_sound = $SoundEffects/LandingSound
+@onready var game_over_sound = $SoundEffects/GameOverSound
+
 
 
 
@@ -70,6 +76,7 @@ func reset():
 	
 # When player gets hit take damage.
 func take_damage(damage):
+	hurt_sound.play()
 	if !invincible_boost:
 		isHurt = true
 		isIdle = false
@@ -120,6 +127,7 @@ func remove_attack_boost():
 func _physics_process(delta):
 	# Play dust animation when player lands
 	if isGrounded == false and is_on_floor() == true:
+		landing_sound.play()
 		dust.visible = true
 		dust.play("dust")
 		
@@ -199,6 +207,7 @@ func _physics_process(delta):
 		velocity.y = JUMP_VELOCITY
 	# Handle attack
 	elif Input.is_action_just_pressed("slash") and attackAnimationFinished == true:
+		sword_swing.play()
 		if comboResetTimer == 0:
 			comboCount = 1
 		else:
@@ -213,6 +222,14 @@ func _physics_process(delta):
 		if comboResetTimer <= 0:
 			comboCount = 1
 			comboResetTimer = 0
+	
+	if isRunning and !running_sound.playing:
+		running_sound.play()
+	elif !isRunning or isJumping:
+		running_sound.stop()
+		
+	if isDying and !game_over_sound.playing:
+		game_over_sound.play()
 
 	# Get the input direction and handle the movement/deceleration.
 	var direction = Input.get_action_strength("right") - Input.get_action_strength("left")
@@ -253,7 +270,7 @@ func _on_animated_sprite_2d_animation_finished():
 	elif player.animation == "dying":
 		isDying = false
 		isDead= true
-		isIdle = true
+		game_over_sound.stop()
 		
 
 

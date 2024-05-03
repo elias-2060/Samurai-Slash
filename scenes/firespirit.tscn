@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://drc5vmu7qqyr"]
+[gd_scene load_steps=49 format=3 uid="uid://drc5vmu7qqyr"]
 
 [ext_resource type="Script" path="res://scenes/firespirit.gd" id="1_ba03o"]
 [ext_resource type="Texture2D" uid="uid://ufbql82vun71" path="res://assets/Fire_Spirit/Explosion.png" id="1_thmop"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://ca6aj7s2rrca8" path="res://assets/Fire_Spirit/Idle.png" id="4_ly447"]
 [ext_resource type="Texture2D" uid="uid://c0tqlnsp12ydv" path="res://assets/Fire_Spirit/Run.png" id="5_ckux6"]
 [ext_resource type="PackedScene" uid="uid://bfyjlkby1sw1l" path="res://scenes/healthbar.tscn" id="7_dh6pv"]
+[ext_resource type="AudioStream" uid="uid://cmah7vucl3lj8" path="res://assets/Sound_trackes/hit-swing-sword-small-2-95566.mp3" id="8_jkhwd"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2tvsp"]
 atlas = ExtResource("2_1e7vf")
@@ -331,6 +332,10 @@ offset_top = -39.0
 offset_right = 35.0
 offset_bottom = -29.0
 theme_override_styles/fill = SubResource("StyleBoxFlat_moorn")
+
+[node name="HitSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_jkhwd")
+volume_db = 1.0
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

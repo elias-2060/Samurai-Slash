@@ -10,6 +10,7 @@ extends CharacterBody2D
 # Enemy bullet object
 const magicsphereObject = preload("res://scenes/magicsphere.tscn")
 @onready var healthbar = $Healthbar
+@onready var hit_sound = $HitSound
 
 
 # Enemy stats
@@ -127,6 +128,7 @@ func _on_animated_sprite_2d_animation_finished():
 		queue_free()
 
 func _on_hurtbox_area_entered(area):
+	hit_sound.play()
 	var entity = area.get_parent()
 	if entity.comboCount == 1:
 		take_damage(entity.attack_damage)

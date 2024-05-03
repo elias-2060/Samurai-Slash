@@ -2789,9 +2789,10 @@ offset_bottom = 85.0
 position = Vector2(630, 511)
 collision_mask = 4
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="BackgroundSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_u6ss4")
 volume_db = 1.0
+pitch_scale = 1.5
 autoplay = true
 
 [connection signal="child_exiting_tree" from="Enemy'sContainer" to="GameManager" method="_on_enemys_child_exiting_tree"]

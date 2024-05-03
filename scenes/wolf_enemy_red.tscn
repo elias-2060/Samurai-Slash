@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://hw1gugln3lr1"]
+[gd_scene load_steps=41 format=3 uid="uid://hw1gugln3lr1"]
 
 [ext_resource type="Script" path="res://scenes/wolf_enemy_red.gd" id="1_0p8uh"]
 [ext_resource type="Texture2D" uid="uid://480na4lqi4bj" path="res://assets/Red_Werewolf/Run+Attack.png" id="1_w8f67"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://c6a6fyqx72ahc" path="res://assets/Red_Werewolf/Idle.png" id="4_7lxvs"]
 [ext_resource type="Texture2D" uid="uid://cikb4siga6yf3" path="res://assets/Red_Werewolf/Run.png" id="5_frx1b"]
 [ext_resource type="PackedScene" uid="uid://bfyjlkby1sw1l" path="res://scenes/healthbar.tscn" id="7_8p86o"]
+[ext_resource type="AudioStream" uid="uid://cmah7vucl3lj8" path="res://assets/Sound_trackes/hit-swing-sword-small-2-95566.mp3" id="8_h16si"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hap8r"]
 atlas = ExtResource("1_w8f67")
@@ -277,6 +278,10 @@ offset_top = -46.0
 offset_right = 59.0
 offset_bottom = -36.0
 theme_override_styles/fill = SubResource("StyleBoxFlat_e2eju")
+
+[node name="HitSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_h16si")
+volume_db = 1.0
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
