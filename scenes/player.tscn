@@ -1,4 +1,4 @@
-[gd_scene load_steps=77 format=3 uid="uid://dc7mr7kd5gc3c"]
+[gd_scene load_steps=79 format=3 uid="uid://dc7mr7kd5gc3c"]
 
 [ext_resource type="Script" path="res://scenes/player.gd" id="1_imceo"]
 [ext_resource type="Texture2D" uid="uid://ch8mtimser8bm" path="res://assets/Samurai/Attack_1.png" id="2_m0q7q"]
@@ -22,6 +22,8 @@
 [ext_resource type="AudioStream" uid="uid://bofppqr1niguj" path="res://assets/Sound_trackes/jumpland44100.mp3" id="20_3a7ny"]
 [ext_resource type="AudioStream" uid="uid://cqbg6bwxv8vcs" path="res://assets/Sound_trackes/running-1-6846.mp3" id="20_svmpm"]
 [ext_resource type="AudioStream" uid="uid://b2ldnrqx5722w" path="res://assets/Sound_trackes/sound-fx-death_129bpm_A_major.wav" id="22_iat4h"]
+[ext_resource type="AudioStream" uid="uid://ihygtuyyh260" path="res://assets/Sound_trackes/386486__iimck__jump.wav" id="23_fq261"]
+[ext_resource type="AudioStream" uid="uid://bhvgujyi60p6s" path="res://assets/Sound_trackes/power-up-sparkle-1-177983.mp3" id="24_oohtp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_t5oih"]
 atlas = ExtResource("2_m0q7q")
@@ -543,13 +545,22 @@ volume_db = 1.0
 
 [node name="RunningSound" type="AudioStreamPlayer" parent="SoundEffects"]
 stream = ExtResource("20_svmpm")
-volume_db = 15.0
+volume_db = 10.0
 
 [node name="LandingSound" type="AudioStreamPlayer" parent="SoundEffects"]
 stream = ExtResource("20_3a7ny")
+volume_db = -5.0
 
 [node name="GameOverSound" type="AudioStreamPlayer" parent="SoundEffects"]
+process_mode = 2
 stream = ExtResource("22_iat4h")
+
+[node name="JumpingSound" type="AudioStreamPlayer" parent="SoundEffects"]
+stream = ExtResource("23_fq261")
+volume_db = -15.0
+
+[node name="PickupSound" type="AudioStreamPlayer" parent="SoundEffects"]
+stream = ExtResource("24_oohtp")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

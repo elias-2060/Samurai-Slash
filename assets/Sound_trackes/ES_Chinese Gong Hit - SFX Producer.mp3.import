@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bf5ispnt4rauc"
+path="res://.godot/imported/ES_Chinese Gong Hit - SFX Producer.mp3-b392c0284c2938c6ef374434d53cafc3.mp3str"
+
+[deps]
+
+source_file="res://assets/Sound_trackes/ES_Chinese Gong Hit - SFX Producer.mp3"
+dest_files=["res://.godot/imported/ES_Chinese Gong Hit - SFX Producer.mp3-b392c0284c2938c6ef374434d53cafc3.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

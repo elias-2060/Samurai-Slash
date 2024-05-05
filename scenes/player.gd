@@ -7,7 +7,7 @@ var attack_damage = 20
 var attack_damage2 = 25
 var attack_damage3 = 30
 const COMBO_TIME_LIMIT = 0.5
-const MAX_HEALTH = 200
+const MAX_HEALTH = 100
 var hitpoints = 0
 
 # Player states
@@ -55,6 +55,8 @@ var comboResetTimer = 0
 @onready var running_sound = $SoundEffects/RunningSound
 @onready var landing_sound = $SoundEffects/LandingSound
 @onready var game_over_sound = $SoundEffects/GameOverSound
+@onready var jumping_sound = $SoundEffects/JumpingSound
+@onready var pickup_sound = $SoundEffects/PickupSound
 
 
 
@@ -76,14 +78,15 @@ func reset():
 	
 # When player gets hit take damage.
 func take_damage(damage):
-	hurt_sound.play()
 	if !invincible_boost:
+		hurt_sound.play()
 		isHurt = true
 		isIdle = false
 		hitpoints -= damage
 		healthbar.health = hitpoints
 	
 func add_attack_boost(attack_boost, duration):
+	pickup_sound.play()
 	attack_damage += attack_boost
 	attack_damage2 += attack_boost
 	attack_damage3 += attack_boost
@@ -92,16 +95,19 @@ func add_attack_boost(attack_boost, duration):
 	damage_boost = true
 	
 func add_speed_boost(boost, duration):
+	pickup_sound.play()
 	speed += boost
 	power_up_duration = duration
 	power_up_time = 0
 	speed_boost = true
 
 func add_max_health_boost():
+	pickup_sound.play()
 	hitpoints = MAX_HEALTH
 	healthbar.health = hitpoints
 
 func add_invincible_boost(duration):
+	pickup_sound.play()
 	power_up_duration = duration
 	power_up_time = 0
 	invincible_boost = true
@@ -203,6 +209,7 @@ func _physics_process(delta):
 	
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
+		jumping_sound.play()
 		isJumping = true
 		velocity.y = JUMP_VELOCITY
 	# Handle attack
@@ -270,7 +277,6 @@ func _on_animated_sprite_2d_animation_finished():
 	elif player.animation == "dying":
 		isDying = false
 		isDead= true
-		game_over_sound.stop()
 		
 
 

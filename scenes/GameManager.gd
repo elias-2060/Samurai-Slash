@@ -19,6 +19,7 @@ extends Node
 @onready var wave_info_t_imer_2 = $"../WaveInfoTImer2"
 @onready var score_info = $"../Player/ScoreInfo/HBoxContainer/Label"
 @onready var background_sound = $"../BackgroundSound"
+@onready var wave_sound = $"../WaveSound"
 
 
 const MENU_SCENE = preload("res://scenes/menu.tscn")
@@ -129,6 +130,7 @@ func start_wave():
 	update_niveau()
 	update_wave_info()  # Update the wave information before spawning enemies
 	# Start the wave info timer
+	wave_sound.play()
 	wave_info_timer.start()
 	
 # Function to update the wave information text
@@ -171,7 +173,7 @@ func spawn_enemy():
 	enemy.collision_mask = 0b100 # Mask 3
 		
 	# Set the enemy position
-	enemy.global_position.y = player.global_position.y
+	enemy.global_position.y = playerPos.y
 		
 	# Defining the x-ranges
 	var minRight = player.global_position.x + 600
@@ -236,6 +238,8 @@ func _on_enemys_child_exiting_tree(node):
 	check_wave_completed()
 
 func _physics_process(delta):
+	if player.isDead:
+		end_game()
 	score_info.text = "Score: " + str(score)
 	if startFade:
 		var fade_alpha = clamp(label.modulate.a - (delta / FADE_OUT_DURATION), 0.0, 1.0)
@@ -259,9 +263,6 @@ func _physics_process(delta):
 	if time_since_last_power_up >= POWER_UP_TIMER and power_ups_container.get_child_count() == 0:
 		# Spawn a power-up
 		spawn_power_up()
-	
-	if player.isDead:
-		end_game()
 		
 	
 	if Input.is_action_just_pressed("escape"):
