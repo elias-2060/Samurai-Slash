@@ -8,6 +8,8 @@ extends CharacterBody2D
 @onready var attack_box = $Hitbox/AttackBox
 @onready var healthbar = $Healthbar
 @onready var hit_sound = $HitSound
+@onready var attack_sound = $AttackSound
+@onready var dying_sound = $DyingSound
 
 # Enemy stats
 const SPEED = 200.0
@@ -25,6 +27,8 @@ var state = EnemyState.CHASING
 var prevState
 var idle_timer = 0.0
 var attack_timer = 0.0
+
+var dead = false
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -70,6 +74,9 @@ func _physics_process(delta):
 			attack_box.disabled = true
 			enemy.play("hurt")
 		EnemyState.DYING:
+			if !dead:
+				dying_sound.play()
+				dead = true
 			velocity.x = 0
 			attack_box.disabled = true
 			enemy.play("dying")
@@ -98,6 +105,7 @@ func chase_player():
 		state = EnemyState.ATTACKING
 
 func attack_player():
+	attack_sound.play()
 	# Play attack animation
 	enemy.play("attack")
 

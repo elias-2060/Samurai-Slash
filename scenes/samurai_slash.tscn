@@ -5,8 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://dc7mr7kd5gc3c" path="res://scenes/player.tscn" id="3_g5opy"]
 [ext_resource type="Script" path="res://scenes/GameManager.gd" id="4_ljgpg"]
 [ext_resource type="PackedScene" uid="uid://bx82lfadxtl6e" path="res://scenes/wave_info.tscn" id="5_5e1eb"]
-[ext_resource type="AudioStream" uid="uid://c8q0h26nkg55y" path="res://assets/Sound_trackes/MyVeryOwnDeadShip.ogg" id="6_u6ss4"]
-[ext_resource type="AudioStream" uid="uid://bf5ispnt4rauc" path="res://assets/Sound_trackes/ES_Chinese Gong Hit - SFX Producer.mp3" id="7_yp0os"]
+[ext_resource type="AudioStream" uid="uid://c8q0h26nkg55y" path="res://assets/Sound_trackes/MyVeryOwnDeadShip.ogg" id="6_6kme2"]
+[ext_resource type="AudioStream" uid="uid://bf5ispnt4rauc" path="res://assets/Sound_trackes/ES_Chinese Gong Hit - SFX Producer.mp3" id="7_fenkj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8njtk"]
 texture = ExtResource("2_66mw7")
@@ -2791,12 +2791,12 @@ position = Vector2(630, 511)
 collision_mask = 4
 
 [node name="BackgroundSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("6_u6ss4")
+stream = ExtResource("6_6kme2")
 volume_db = -2.0
 autoplay = true
 
 [node name="WaveSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("7_yp0os")
+stream = ExtResource("7_fenkj")
 
 [connection signal="child_exiting_tree" from="Enemy'sContainer" to="GameManager" method="_on_enemys_child_exiting_tree"]
 [connection signal="child_exiting_tree" from="PowerUpsContainer" to="GameManager" method="_on_power_ups_container_child_exiting_tree"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://colaw4bkehk6s"]
+[gd_scene load_steps=41 format=3 uid="uid://colaw4bkehk6s"]
 
 [ext_resource type="Texture2D" uid="uid://cllts5mnxcjl0" path="res://assets/Skeleton_Spearman/Attack_2.png" id="1_3jp28"]
 [ext_resource type="Script" path="res://scenes/skeleton_spear.gd" id="1_v5yio"]
@@ -7,7 +7,9 @@
 [ext_resource type="Texture2D" uid="uid://dqgly3v74yl35" path="res://assets/Skeleton_Spearman/Idle.png" id="4_i7ykh"]
 [ext_resource type="Texture2D" uid="uid://8xeq6vbinis6" path="res://assets/Skeleton_Spearman/Run.png" id="5_boeak"]
 [ext_resource type="PackedScene" uid="uid://bfyjlkby1sw1l" path="res://scenes/healthbar.tscn" id="7_lbyi7"]
-[ext_resource type="AudioStream" uid="uid://cmah7vucl3lj8" path="res://assets/Sound_trackes/hit-swing-sword-small-2-95566.mp3" id="8_74g6p"]
+[ext_resource type="AudioStream" uid="uid://cmah7vucl3lj8" path="res://assets/Sound_trackes/hit-swing-sword-small-2-95566.mp3" id="8_c8vj6"]
+[ext_resource type="AudioStream" uid="uid://b5gylhyuv22pa" path="res://assets/Sound_trackes/slash-21834.mp3" id="9_ub7vm"]
+[ext_resource type="AudioStream" uid="uid://e01wtejjjjcf" path="res://assets/Sound_trackes/skeleton-dying.mp3" id="10_tamhp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8lajt"]
 atlas = ExtResource("1_3jp28")
@@ -266,8 +268,16 @@ offset_bottom = -36.0
 theme_override_styles/fill = SubResource("StyleBoxFlat_wyfil")
 
 [node name="HitSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("8_74g6p")
+stream = ExtResource("8_c8vj6")
 volume_db = 1.0
+
+[node name="AttackSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_ub7vm")
+volume_db = 1.0
+
+[node name="DyingSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_tamhp")
+volume_db = -5.0
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

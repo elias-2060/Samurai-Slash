@@ -12,6 +12,8 @@ extends CharacterBody2D
 const arrowObject = preload("res://scenes/arrow.tscn")
 @onready var healthbar = $Healthbar
 @onready var hit_sound = $HitSound
+@onready var knife_attack = $KnifeAttack
+@onready var dying_sound = $DyingSound
 
 
 # Enemy stats
@@ -68,6 +70,7 @@ func _physics_process(delta):
 		EnemyState.ATTACKING2:
 			velocity.x = 0
 			attack_box.disabled = true
+			knife_attack.play()
 			enemy.play("attack 2")
 			attack_timer += delta
 			if attack_timer >= ATTACKTIME:
@@ -81,6 +84,8 @@ func _physics_process(delta):
 			attack_box.disabled = true
 			enemy.play("hurt")
 		EnemyState.DYING:
+			if !dying_sound.playing:
+				dying_sound.play()
 			velocity.x = 0
 			attack_box.disabled = true
 			enemy.play("dying")

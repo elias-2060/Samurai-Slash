@@ -9,6 +9,9 @@ extends CharacterBody2D
 
 @onready var healthbar = $Healthbar
 @onready var hit_sound = $HitSound
+@onready var growling_sound = $GrowlingSound
+@onready var attack_sound = $AttackSound
+@onready var dying_sound = $DyingSound
 
 # Enemy stats
 const SPEED = 250.0
@@ -26,6 +29,9 @@ var state = EnemyState.CHASING
 var prevState
 var idle_timer = 0.0
 var attack_timer = 0.0
+var growl_cooldown = 0.0
+var growl_cooldown_duration = 1.5  
+
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -69,6 +75,8 @@ func _physics_process(delta):
 			attack_box.disabled = true
 			enemy.play("hurt")
 		EnemyState.DYING:
+			if !dying_sound.playing:
+				dying_sound.play()
 			velocity.x = 0
 			attack_box.disabled = true
 			enemy.play("dying")
@@ -80,6 +88,16 @@ func _physics_process(delta):
 	move_and_slide()
 
 func chase_player():
+	# Check if growling cooldown has elapsed
+	if growl_cooldown <= 0.0:
+		# Check if the enemy is already growling
+		if not growling_sound.is_playing() and randf() < 0.8:  # Adjust probability as needed
+			growling_sound.play()
+		# Reset cooldown
+		growl_cooldown = growl_cooldown_duration
+	else:
+		# Decrease cooldown timer
+		growl_cooldown -= get_process_delta_time()
 	enemy.play("running")
 	var direction = (player.global_position - global_position).normalized()
 	velocity.x = direction.x * SPEED
@@ -96,6 +114,7 @@ func chase_player():
 		state = EnemyState.ATTACKING
 
 func attack_player():
+	attack_sound.play()
 	# Play attack animation
 	enemy.play("attack")
 

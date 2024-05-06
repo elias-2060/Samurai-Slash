@@ -63,7 +63,7 @@ const NIVEAU_FOUR = [
 # Variables
 var current_wave = 0
 var enemies_left_in_wave = 0
-var wave_enemy_limit = 1 # Initial limit for enemies in each wave
+var wave_enemy_limit = 0 # Initial limit for enemies in each wave
 var current_niveau = 1 # Initial niveau
 var enemies_by_niveau = [] # Array to hold enemies based on their niveau
 var power_up_spawn_timer # Timer for spawning power-ups
@@ -97,7 +97,7 @@ func reset():
 	spawnEnemies = false
 	current_wave = 0
 	enemies_left_in_wave = 0
-	wave_enemy_limit = 1
+	wave_enemy_limit = 0
 	current_niveau = 1
 	time_since_last_power_up = 0.0
 	wave_info.visible = false
@@ -166,7 +166,7 @@ func update_niveau():
 func spawn_enemy():
 	# Selecting the niveau based on weighted probability
 	var enemy_type = choose_enemy_type()
-	var enemy = enemy_type.instantiate()
+	var enemy = NIVEAU_FOUR[2].instantiate()
 		
 	# Set collision layer and mask
 	enemy.collision_layer = 0b10 # Layer 2

@@ -11,6 +11,7 @@ extends CharacterBody2D
 const lightningballObject = preload("res://scenes/lightningball.tscn")
 @onready var healthbar = $Healthbar
 @onready var hit_sound = $HitSound
+@onready var dying_sound = $DyingSound
 
 
 # Enemy stats
@@ -31,6 +32,7 @@ var state = EnemyState.CHASING
 var prevState
 var idle_timer = 0.0
 var attack_timer = 0.0
+var dead = false
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -79,6 +81,9 @@ func _physics_process(delta):
 			attack_box.disabled = true
 			enemy.play("hurt")
 		EnemyState.DYING:
+			if !dead:
+				dying_sound.play()
+				dead = true
 			velocity.x = 0
 			attack_box.disabled = true
 			enemy.play("dying")

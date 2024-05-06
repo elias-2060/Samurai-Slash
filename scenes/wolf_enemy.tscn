@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://vh2llvswmww3"]
+[gd_scene load_steps=44 format=3 uid="uid://vh2llvswmww3"]
 
 [ext_resource type="Script" path="res://scenes/wolf_enemy.gd" id="1_geyuy"]
 [ext_resource type="Texture2D" uid="uid://boq55rhrkna6c" path="res://assets/Black_Werewolf/Idle.png" id="1_o38in"]
@@ -7,7 +7,10 @@
 [ext_resource type="Texture2D" uid="uid://dbifch3hui5cd" path="res://assets/Black_Werewolf/Run.png" id="3_vnre3"]
 [ext_resource type="Texture2D" uid="uid://da8dyjrjj6q33" path="res://assets/Black_Werewolf/Hurt.png" id="4_lcjuu"]
 [ext_resource type="PackedScene" uid="uid://bfyjlkby1sw1l" path="res://scenes/healthbar.tscn" id="7_2r8y0"]
-[ext_resource type="AudioStream" uid="uid://cmah7vucl3lj8" path="res://assets/Sound_trackes/hit-swing-sword-small-2-95566.mp3" id="8_iamvf"]
+[ext_resource type="AudioStream" uid="uid://cmah7vucl3lj8" path="res://assets/Sound_trackes/hit-swing-sword-small-2-95566.mp3" id="8_35jx7"]
+[ext_resource type="AudioStream" uid="uid://toejw5mxhf45" path="res://assets/Sound_trackes/ES_Monster Snarl Growl 6 - SFX Producer.mp3" id="9_fhm0g"]
+[ext_resource type="AudioStream" uid="uid://b5gylhyuv22pa" path="res://assets/Sound_trackes/slash-21834.mp3" id="10_h3i3u"]
+[ext_resource type="AudioStream" uid="uid://b8fogcwc5eicm" path="res://assets/Sound_trackes/318321__michael-klier__large-monster-death-01.wav" id="11_g5h3v"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wm7c1"]
 atlas = ExtResource("2_08ej0")
@@ -282,8 +285,19 @@ offset_bottom = -36.0
 theme_override_styles/fill = SubResource("StyleBoxFlat_oae2w")
 
 [node name="HitSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("8_iamvf")
+stream = ExtResource("8_35jx7")
 volume_db = 1.0
+
+[node name="GrowlingSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_fhm0g")
+volume_db = -5.0
+
+[node name="AttackSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_h3i3u")
+volume_db = 1.0
+
+[node name="DyingSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_g5h3v")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

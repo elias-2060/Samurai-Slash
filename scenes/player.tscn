@@ -17,13 +17,13 @@
 [ext_resource type="Texture2D" uid="uid://d1lpycxyvqro5" path="res://assets/Dust_effect/dust2.png" id="15_xt35t"]
 [ext_resource type="Texture2D" uid="uid://d0kpms22g6cin" path="res://assets/Dust_effect/dust3.png" id="16_xbtc8"]
 [ext_resource type="Texture2D" uid="uid://w2ib1dn2m2nd" path="res://assets/Dust_effect/dust4.png" id="17_7hdl7"]
-[ext_resource type="AudioStream" uid="uid://b5ooo88ef3ye4" path="res://assets/Sound_trackes/sword-sound-2-36274.mp3" id="18_1xvy7"]
-[ext_resource type="AudioStream" uid="uid://ryvcksahr5xo" path="res://assets/Sound_trackes/male_hurt7-48124.mp3" id="19_te6x0"]
-[ext_resource type="AudioStream" uid="uid://bofppqr1niguj" path="res://assets/Sound_trackes/jumpland44100.mp3" id="20_3a7ny"]
-[ext_resource type="AudioStream" uid="uid://cqbg6bwxv8vcs" path="res://assets/Sound_trackes/running-1-6846.mp3" id="20_svmpm"]
-[ext_resource type="AudioStream" uid="uid://b2ldnrqx5722w" path="res://assets/Sound_trackes/sound-fx-death_129bpm_A_major.wav" id="22_iat4h"]
-[ext_resource type="AudioStream" uid="uid://ihygtuyyh260" path="res://assets/Sound_trackes/386486__iimck__jump.wav" id="23_fq261"]
-[ext_resource type="AudioStream" uid="uid://bhvgujyi60p6s" path="res://assets/Sound_trackes/power-up-sparkle-1-177983.mp3" id="24_oohtp"]
+[ext_resource type="AudioStream" uid="uid://ryvcksahr5xo" path="res://assets/Sound_trackes/male_hurt7-48124.mp3" id="18_76wpx"]
+[ext_resource type="AudioStream" uid="uid://b5ooo88ef3ye4" path="res://assets/Sound_trackes/sword-sound-2-36274.mp3" id="19_33h0i"]
+[ext_resource type="AudioStream" uid="uid://cqbg6bwxv8vcs" path="res://assets/Sound_trackes/running-1-6846.mp3" id="20_v5gmj"]
+[ext_resource type="AudioStream" uid="uid://bofppqr1niguj" path="res://assets/Sound_trackes/jumpland44100.mp3" id="21_n652b"]
+[ext_resource type="AudioStream" uid="uid://b2ldnrqx5722w" path="res://assets/Sound_trackes/sound-fx-death_129bpm_A_major.wav" id="22_cebyh"]
+[ext_resource type="AudioStream" uid="uid://ihygtuyyh260" path="res://assets/Sound_trackes/386486__iimck__jump.wav" id="23_mfdcd"]
+[ext_resource type="AudioStream" uid="uid://bhvgujyi60p6s" path="res://assets/Sound_trackes/power-up-sparkle-1-177983.mp3" id="24_iqesh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_t5oih"]
 atlas = ExtResource("2_m0q7q")
@@ -536,31 +536,31 @@ frame_progress = 1.0
 [node name="SoundEffects" type="Node" parent="."]
 
 [node name="HurtSound" type="AudioStreamPlayer" parent="SoundEffects"]
-stream = ExtResource("19_te6x0")
+stream = ExtResource("18_76wpx")
 volume_db = -5.0
 
 [node name="SwordSwing" type="AudioStreamPlayer" parent="SoundEffects"]
-stream = ExtResource("18_1xvy7")
+stream = ExtResource("19_33h0i")
 volume_db = 1.0
 
 [node name="RunningSound" type="AudioStreamPlayer" parent="SoundEffects"]
-stream = ExtResource("20_svmpm")
+stream = ExtResource("20_v5gmj")
 volume_db = 10.0
 
 [node name="LandingSound" type="AudioStreamPlayer" parent="SoundEffects"]
-stream = ExtResource("20_3a7ny")
+stream = ExtResource("21_n652b")
 volume_db = -5.0
 
 [node name="GameOverSound" type="AudioStreamPlayer" parent="SoundEffects"]
 process_mode = 2
-stream = ExtResource("22_iat4h")
+stream = ExtResource("22_cebyh")
 
 [node name="JumpingSound" type="AudioStreamPlayer" parent="SoundEffects"]
-stream = ExtResource("23_fq261")
+stream = ExtResource("23_mfdcd")
 volume_db = -15.0
 
 [node name="PickupSound" type="AudioStreamPlayer" parent="SoundEffects"]
-stream = ExtResource("24_oohtp")
+stream = ExtResource("24_iqesh")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
