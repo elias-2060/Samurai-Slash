@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=3 uid="uid://qeovi53v5jvc"]
+[gd_scene load_steps=59 format=3 uid="uid://qeovi53v5jvc"]
 
 [ext_resource type="Script" path="res://scenes/skeleton_archer.gd" id="1_q1tro"]
 [ext_resource type="Texture2D" uid="uid://7lxlgef6fmib" path="res://assets/Skeleton_Archer/Shot_1.png" id="1_v457h"]
@@ -11,6 +11,7 @@
 [ext_resource type="AudioStream" uid="uid://cmah7vucl3lj8" path="res://assets/Sound_trackes/hit-swing-sword-small-2-95566.mp3" id="9_kr6in"]
 [ext_resource type="AudioStream" uid="uid://b5gylhyuv22pa" path="res://assets/Sound_trackes/slash-21834.mp3" id="10_f58r5"]
 [ext_resource type="AudioStream" uid="uid://e01wtejjjjcf" path="res://assets/Sound_trackes/skeleton-dying.mp3" id="11_jmxlh"]
+[ext_resource type="AudioStream" uid="uid://byijysqxum0iq" path="res://assets/Sound_trackes/weapon-arrow-shot-01-153370.mp3" id="12_4whmt"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p26m3"]
 atlas = ExtResource("1_v457h")
@@ -399,6 +400,10 @@ volume_db = 1.0
 [node name="DyingSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("11_jmxlh")
 volume_db = -5.0
+
+[node name="ShootSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_4whmt")
+volume_db = -10.0
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

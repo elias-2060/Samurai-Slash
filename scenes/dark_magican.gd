@@ -12,6 +12,8 @@ const magicsphereObject = preload("res://scenes/magicsphere.tscn")
 @onready var healthbar = $Healthbar
 @onready var hit_sound = $HitSound
 @onready var dying_sound = $DyingSound
+@onready var shot_sound = $ShotSound
+@onready var shot_sound_2 = $ShotSound2
 
 
 # Enemy stats
@@ -109,8 +111,10 @@ func chase_player():
 	# Transition to attacking state if in range
 	var distance_to_player = global_position.distance_to(player.global_position)
 	if distance_to_player < ATTACK_RANGE2:
+		shot_sound_2.play()
 		state = EnemyState.ATTACKING2
 	elif distance_to_player < ATTACK_RANGE and distance_to_player > 150:
+		shot_sound.play()
 		state = EnemyState.ATTACKING
 
 func attack_player():

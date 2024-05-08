@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://0kqx6qc11uky"
+path="res://.godot/imported/MAGShim_Magic Shimmer Spell Cast Whoosh Shine Light 01_ESM_PM.mp3-8766a53333db2b03d8ad03891d1738c0.mp3str"
+
+[deps]
+
+source_file="res://assets/Sound_trackes/MAGShim_Magic Shimmer Spell Cast Whoosh Shine Light 01_ESM_PM.mp3"
+dest_files=["res://.godot/imported/MAGShim_Magic Shimmer Spell Cast Whoosh Shine Light 01_ESM_PM.mp3-8766a53333db2b03d8ad03891d1738c0.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

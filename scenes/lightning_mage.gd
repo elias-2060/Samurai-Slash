@@ -12,6 +12,8 @@ const lightningballObject = preload("res://scenes/lightningball.tscn")
 @onready var healthbar = $Healthbar
 @onready var hit_sound = $HitSound
 @onready var dying_sound = $DyingSound
+@onready var shot_sound = $ShotSound
+@onready var shot_sound_2 = $ShotSound2
 
 
 # Enemy stats
@@ -22,7 +24,7 @@ const ATTACK_RANGE = 400
 const ATTACK_RANGE2 = 75
 const IDLE_TIME = 1.5
 const HEIGHT = 18
-const ATTACKTIME = 0.65
+const ATTACKTIME = 0.95
 const ATTACK_DAMAGE = 30
 const score = 60
 
@@ -33,7 +35,6 @@ var prevState
 var idle_timer = 0.0
 var attack_timer = 0.0
 var dead = false
-
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
@@ -108,8 +109,10 @@ func chase_player():
 	# Transition to attacking state if in range
 	var distance_to_player = global_position.distance_to(player.global_position)
 	if distance_to_player < ATTACK_RANGE2:
+		shot_sound_2.play()
 		state = EnemyState.ATTACKING2
 	elif distance_to_player < ATTACK_RANGE and distance_to_player > 150:
+		shot_sound.play()
 		state = EnemyState.ATTACKING
 
 func attack_player():
@@ -127,6 +130,8 @@ func _on_animated_sprite_2d_animation_finished():
 		if EnemyState.ATTACKING:
 			shoot()
 			state = EnemyState.IDLE
+	elif enemy.animation == "attack 2":
+		shot_sound_2.stop()
 	elif enemy.animation == "dying":
 		state = EnemyState.DEAD
 		queue_free()

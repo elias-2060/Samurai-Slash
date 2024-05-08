@@ -21,7 +21,6 @@ extends Node
 @onready var background_sound = $"../BackgroundSound"
 @onready var wave_sound = $"../WaveSound"
 
-
 const MENU_SCENE = preload("res://scenes/menu.tscn")
 const DEAD_MENU_SCENE = preload("res://scenes/dead_menu.tscn")
 const WAVE_INFO_SCENE = preload("res://scenes/wave_info.tscn")
@@ -166,7 +165,7 @@ func update_niveau():
 func spawn_enemy():
 	# Selecting the niveau based on weighted probability
 	var enemy_type = choose_enemy_type()
-	var enemy = NIVEAU_FOUR[2].instantiate()
+	var enemy = enemy_type.instantiate()
 		
 	# Set collision layer and mask
 	enemy.collision_layer = 0b10 # Layer 2

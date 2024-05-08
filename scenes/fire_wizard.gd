@@ -12,6 +12,8 @@ const fireballObject = preload("res://scenes/fireball.tscn")
 @onready var healthbar = $Healthbar
 @onready var hit_sound = $HitSound
 @onready var dying_sound = $DyingSound
+@onready var shot_sound = $ShotSound
+@onready var shot_sound_2 = $ShotSound2
 
 
 # Enemy stats
@@ -34,6 +36,7 @@ var prevState
 var idle_timer = 0.0
 var attack_timer = 0.0
 var dead = false
+var shotSound = false
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -109,11 +112,16 @@ func chase_player():
 	# Transition to attacking state if in range
 	var distance_to_player = global_position.distance_to(player.global_position)
 	if distance_to_player < ATTACK_RANGE2:
+		shot_sound_2.play()
 		state = EnemyState.ATTACKING2
 	elif distance_to_player < ATTACK_RANGE and distance_to_player > 150:
+		shotSound = false
 		state = EnemyState.ATTACKING
 
 func attack_player():
+	if !shotSound:
+		shot_sound.play()
+		shotSound = true
 	# Play attack animation
 	enemy.play("attack")
 
@@ -128,6 +136,8 @@ func _on_animated_sprite_2d_animation_finished():
 		if EnemyState.ATTACKING:
 			shoot()
 			state = EnemyState.IDLE
+	elif enemy.animation == "attack 2":
+		shot_sound_2.stop()
 	elif enemy.animation == "dying":
 		state = EnemyState.DEAD
 		queue_free()

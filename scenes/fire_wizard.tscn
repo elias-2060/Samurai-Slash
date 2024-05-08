@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://bm46a8cxi8l3j"]
+[gd_scene load_steps=62 format=3 uid="uid://bm46a8cxi8l3j"]
 
 [ext_resource type="Script" path="res://scenes/fire_wizard.gd" id="1_sk77r"]
 [ext_resource type="Texture2D" uid="uid://dh1mgvcsnde46" path="res://assets/Fire vizard/Fireball.png" id="1_ssuen"]
@@ -10,6 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://bfyjlkby1sw1l" path="res://scenes/healthbar.tscn" id="8_7yhal"]
 [ext_resource type="AudioStream" uid="uid://cmah7vucl3lj8" path="res://assets/Sound_trackes/hit-swing-sword-small-2-95566.mp3" id="9_my0ys"]
 [ext_resource type="AudioStream" uid="uid://5etp0mwp8rgi" path="res://assets/Sound_trackes/splash-death-splash-46048.mp3" id="10_m3mo3"]
+[ext_resource type="AudioStream" uid="uid://c3lnf5a0d3wv2" path="res://assets/Sound_trackes/fireball-whoosh-1-179125.mp3" id="11_qv8xu"]
+[ext_resource type="AudioStream" uid="uid://cpqiyhb0ibuyf" path="res://assets/Sound_trackes/084303_hq-flamethrower-87072.mp3" id="12_gdrs7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e1p5m"]
 atlas = ExtResource("1_ssuen")
@@ -413,7 +415,15 @@ volume_db = 1.0
 
 [node name="DyingSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("10_m3mo3")
-volume_db = -5.0
+volume_db = -10.0
+
+[node name="ShotSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_qv8xu")
+volume_db = -10.0
+
+[node name="ShotSound2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_gdrs7")
+volume_db = -10.0
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

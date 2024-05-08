@@ -14,6 +14,7 @@ const arrowObject = preload("res://scenes/arrow.tscn")
 @onready var hit_sound = $HitSound
 @onready var knife_attack = $KnifeAttack
 @onready var dying_sound = $DyingSound
+@onready var shoot_sound = $ShootSound
 
 
 # Enemy stats
@@ -79,6 +80,7 @@ func _physics_process(delta):
 				state = EnemyState.IDLE
 		EnemyState.ATTACKING:
 			velocity.x = 0
+			
 			attack_player()
 		EnemyState.HURT:
 			attack_box.disabled = true
@@ -128,6 +130,7 @@ func _on_animated_sprite_2d_animation_finished():
 			state = EnemyState.CHASING
 	elif enemy.animation == "attack":
 		if EnemyState.ATTACKING:
+			shoot_sound.play()
 			shoot()
 			state = EnemyState.IDLE
 	elif enemy.animation == "dying":

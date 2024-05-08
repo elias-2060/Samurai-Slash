@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://d1haqj8l8v4j0"]
+[gd_scene load_steps=66 format=3 uid="uid://d1haqj8l8v4j0"]
 
 [ext_resource type="Script" path="res://scenes/dark_magican.gd" id="1_hg7nv"]
 [ext_resource type="Texture2D" uid="uid://dt883tt5mjsoc" path="res://assets/Wanderer Magican/Magic_sphere.png" id="1_mxjnh"]
@@ -10,6 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://bfyjlkby1sw1l" path="res://scenes/healthbar.tscn" id="8_ay20o"]
 [ext_resource type="AudioStream" uid="uid://cmah7vucl3lj8" path="res://assets/Sound_trackes/hit-swing-sword-small-2-95566.mp3" id="9_jpw8v"]
 [ext_resource type="AudioStream" uid="uid://5etp0mwp8rgi" path="res://assets/Sound_trackes/splash-death-splash-46048.mp3" id="10_3ryk2"]
+[ext_resource type="AudioStream" uid="uid://0kqx6qc11uky" path="res://assets/Sound_trackes/MAGShim_Magic Shimmer Spell Cast Whoosh Shine Light 01_ESM_PM.mp3" id="11_c4bda"]
+[ext_resource type="AudioStream" uid="uid://p52ammxjetfv" path="res://assets/Sound_trackes/ES_Magic Spell Impact - SFX Producer.mp3" id="12_jsxp5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sgbou"]
 atlas = ExtResource("1_mxjnh")
@@ -443,7 +445,13 @@ volume_db = 1.0
 
 [node name="DyingSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("10_3ryk2")
-volume_db = -5.0
+volume_db = -10.0
+
+[node name="ShotSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_c4bda")
+
+[node name="ShotSound2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_jsxp5")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

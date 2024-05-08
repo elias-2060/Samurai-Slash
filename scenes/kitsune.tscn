@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=3 uid="uid://di7nqpcwudukg"]
+[gd_scene load_steps=65 format=3 uid="uid://di7nqpcwudukg"]
 
 [ext_resource type="Script" path="res://scenes/kitsune.gd" id="1_gakyk"]
 [ext_resource type="Texture2D" uid="uid://7bb43hcbuh0k" path="res://assets/Kitsune/Attack_1.png" id="1_vq042"]
@@ -10,6 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://bfyjlkby1sw1l" path="res://scenes/healthbar.tscn" id="8_ma4xb"]
 [ext_resource type="AudioStream" uid="uid://cmah7vucl3lj8" path="res://assets/Sound_trackes/hit-swing-sword-small-2-95566.mp3" id="9_pon43"]
 [ext_resource type="AudioStream" uid="uid://5etp0mwp8rgi" path="res://assets/Sound_trackes/splash-death-splash-46048.mp3" id="10_cqci8"]
+[ext_resource type="AudioStream" uid="uid://b2vl6k33owt64" path="res://assets/Sound_trackes/MAGShim_Item Hit Abstract Zip Pick Up 3_ESM_AGS.mp3" id="11_6ea1y"]
+[ext_resource type="AudioStream" uid="uid://ws67mevxsblb" path="res://assets/Sound_trackes/WHSH_Motion Cinematic Whoosh Rocket Airy Passby Organic 01_ESM_EVS.mp3" id="12_bqgbk"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_aipwp"]
 atlas = ExtResource("2_ytmmm")
@@ -436,7 +438,15 @@ volume_db = 1.0
 
 [node name="DyingSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("10_cqci8")
-volume_db = -5.0
+volume_db = -10.0
+
+[node name="ShotSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_6ea1y")
+volume_db = -10.0
+
+[node name="ShotSound2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_bqgbk")
+volume_db = -10.0
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

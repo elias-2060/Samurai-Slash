@@ -8,6 +8,7 @@ extends CharacterBody2D
 @onready var attack_box = $Hitbox/AttackBox
 @onready var healthbar = $Healthbar
 @onready var hit_sound = $HitSound
+@onready var shot_sound = $ShotSound
 
 # Enemy stats
 const SPEED = 500.0
@@ -96,6 +97,7 @@ func chase_player():
 	# Transition to attacking state if in range
 	var distance_to_player = global_position.distance_to(player.global_position)
 	if distance_to_player < ATTACK_RANGE:
+		shot_sound.play()
 		state = EnemyState.ATTACKING
 
 func attack_player():
@@ -109,9 +111,11 @@ func _on_animated_sprite_2d_animation_finished():
 			state = prevState
 		else:
 			state = EnemyState.CHASING
-	elif enemy.animation == "dying" or enemy.animation == "explosion":
+	elif enemy.animation == "dying":
 		state = EnemyState.DEAD
 		queue_free()
+	elif enemy.animation == "explosion":
+		visible = false
 
 func _on_hurtbox_area_entered(area):
 	hit_sound.play()
@@ -122,3 +126,7 @@ func _on_hurtbox_area_entered(area):
 		take_damage(entity.attack_damage2)
 	elif entity.comboCount == 3:
 		take_damage(entity.attack_damage3)
+
+
+func _on_shot_sound_finished():
+	queue_free()

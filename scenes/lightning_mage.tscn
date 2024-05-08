@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://c36a6kscmv5wb"]
+[gd_scene load_steps=59 format=3 uid="uid://c36a6kscmv5wb"]
 
 [ext_resource type="Script" path="res://scenes/lightning_mage.gd" id="1_heub5"]
 [ext_resource type="Texture2D" uid="uid://1cqg2x55bdw2" path="res://assets/Lightning Mage/Light_ball.png" id="1_jh8dt"]
@@ -10,6 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://bfyjlkby1sw1l" path="res://scenes/healthbar.tscn" id="8_s6edm"]
 [ext_resource type="AudioStream" uid="uid://cmah7vucl3lj8" path="res://assets/Sound_trackes/hit-swing-sword-small-2-95566.mp3" id="9_curut"]
 [ext_resource type="AudioStream" uid="uid://5etp0mwp8rgi" path="res://assets/Sound_trackes/splash-death-splash-46048.mp3" id="10_tjbrf"]
+[ext_resource type="AudioStream" uid="uid://4suyq5qobfka" path="res://assets/Sound_trackes/electricity-charge-sound-effect.mp3" id="11_x00vl"]
+[ext_resource type="AudioStream" uid="uid://cu15knifrqs2m" path="res://assets/Sound_trackes/electricity-sound.mp3" id="12_7ak01"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yrcsd"]
 atlas = ExtResource("1_jh8dt")
@@ -350,7 +352,9 @@ script = ExtResource("1_heub5")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(1.25, 1.318)
 sprite_frames = SubResource("SpriteFrames_you0y")
-animation = &"hurt"
+animation = &"attack 2"
+frame = 11
+frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
@@ -392,7 +396,13 @@ volume_db = 1.0
 
 [node name="DyingSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("10_tjbrf")
-volume_db = -5.0
+volume_db = -10.0
+
+[node name="ShotSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_x00vl")
+
+[node name="ShotSound2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_7ak01")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

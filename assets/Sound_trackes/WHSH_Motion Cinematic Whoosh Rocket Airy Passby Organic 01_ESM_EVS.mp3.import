@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://ws67mevxsblb"
+path="res://.godot/imported/WHSH_Motion Cinematic Whoosh Rocket Airy Passby Organic 01_ESM_EVS.mp3-7859916d1951e716a9a59a2ac2fd7aca.mp3str"
+
+[deps]
+
+source_file="res://assets/Sound_trackes/WHSH_Motion Cinematic Whoosh Rocket Airy Passby Organic 01_ESM_EVS.mp3"
+dest_files=["res://.godot/imported/WHSH_Motion Cinematic Whoosh Rocket Airy Passby Organic 01_ESM_EVS.mp3-7859916d1951e716a9a59a2ac2fd7aca.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
