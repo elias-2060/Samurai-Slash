@@ -1,0 +1,65 @@
+[gd_scene load_steps=10 format=3 uid="uid://kxah6bceaqoo"]
+
+[ext_resource type="Script" path="res://scripts/bullets/magicsphere.gd" id="1_33s1a"]
+[ext_resource type="Texture2D" uid="uid://bnvwp6hhlxptq" path="res://assets/enemies/Wanderer Magican/Charge_1.png" id="2_ochnv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d6o21"]
+atlas = ExtResource("2_ochnv")
+region = Rect2(0, 28, 64, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xyv7d"]
+atlas = ExtResource("2_ochnv")
+region = Rect2(64, 28, 64, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xate1"]
+atlas = ExtResource("2_ochnv")
+region = Rect2(128, 28, 64, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kjn15"]
+atlas = ExtResource("2_ochnv")
+region = Rect2(192, 28, 64, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mijp0"]
+atlas = ExtResource("2_ochnv")
+region = Rect2(256, 28, 64, 100)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_800c8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d6o21")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xyv7d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xate1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kjn15")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mijp0")
+}],
+"loop": true,
+"name": &"magicsphere",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sldqv"]
+size = Vector2(45, 24)
+
+[node name="Magicsphere" type="CharacterBody2D"]
+position = Vector2(445, 166)
+script = ExtResource("1_33s1a")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(1.234, 1.234)
+sprite_frames = SubResource("SpriteFrames_800c8")
+animation = &"magicsphere"
+frame_progress = 0.583369
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(7.5, -19)
+shape = SubResource("RectangleShape2D_sldqv")
