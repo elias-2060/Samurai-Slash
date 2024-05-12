@@ -80,7 +80,6 @@ func _physics_process(delta):
 				state = EnemyState.IDLE
 		EnemyState.ATTACKING:
 			velocity.x = 0
-			
 			attack_player()
 		EnemyState.HURT:
 			attack_box.disabled = true
@@ -112,9 +111,10 @@ func chase_player():
 		attack_box.position.x = abs(attack_box.position.x)
 	# Transition to attacking state if in range
 	var distance_to_player = global_position.distance_to(player.global_position)
+	var rangeAttack = randi_range(500, ATTACK_RANGE)
 	if distance_to_player < ATTACK_RANGE2:
 		state = EnemyState.ATTACKING2
-	elif distance_to_player < ATTACK_RANGE and distance_to_player > 200:
+	elif distance_to_player < rangeAttack and distance_to_player > 200:
 		state = EnemyState.ATTACKING
 
 func attack_player():

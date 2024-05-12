@@ -79,6 +79,7 @@ var maxEnemy = 5
 var spawnEnemies = false
 var enemyCount = 0
 var menu_instance
+var last_enemy_type = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -196,17 +197,26 @@ func spawn_enemy():
 	enemy_s_container.add_child.call_deferred(enemy)
 	enemyCount -= 1
 
-# Helper function to choose enemy type with higher probability for the current niveau
 func choose_enemy_type() -> PackedScene:
 	var current_niveau_index = current_niveau - 1
 	if randf() < 0.7:  # 70% chance to spawn from current niveau
-		return enemies_by_niveau[current_niveau_index][randi() % enemies_by_niveau[current_niveau_index].size()]
+		var available_enemies = enemies_by_niveau[current_niveau_index].duplicate()
+		if last_enemy_type in available_enemies:
+			available_enemies.erase(last_enemy_type)
+		var chosen_enemy = available_enemies[randi() % available_enemies.size()]
+		last_enemy_type = chosen_enemy
+		return chosen_enemy
 	else:
 		# Randomly select from all niveaus
 		var all_enemies = []
 		for niveau in enemies_by_niveau:
 			all_enemies += niveau
-		return all_enemies[randi() % all_enemies.size()]
+		var available_enemies = all_enemies.duplicate()
+		if last_enemy_type in available_enemies:
+			available_enemies.erase(last_enemy_type)
+		var chosen_enemy = available_enemies[randi() % available_enemies.size()]
+		last_enemy_type = chosen_enemy
+		return chosen_enemy
 
 # Spawn a power-up at a random position
 func spawn_power_up():

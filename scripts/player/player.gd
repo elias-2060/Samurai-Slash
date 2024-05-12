@@ -7,7 +7,7 @@ var attack_damage = 20
 var attack_damage2 = 25
 var attack_damage3 = 30
 const COMBO_TIME_LIMIT = 0.5
-const MAX_HEALTH = 100
+const MAX_HEALTH = 200
 var hitpoints = 0
 
 # Player states

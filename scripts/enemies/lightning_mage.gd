@@ -20,7 +20,7 @@ const lightningballObject = preload("res://scenes/bullets/lightningball.tscn")
 const SPEED = 200.0
 const JUMP_VELOCITY = -400.0
 var hitpoints = 100
-const ATTACK_RANGE = 400
+const ATTACK_RANGE = 420
 const ATTACK_RANGE2 = 75
 const IDLE_TIME = 1.5
 const HEIGHT = 18
@@ -108,10 +108,11 @@ func chase_player():
 		attack_box.position.x = abs(attack_box.position.x)
 	# Transition to attacking state if in range
 	var distance_to_player = global_position.distance_to(player.global_position)
+	var rangeAttack = randi_range(370, ATTACK_RANGE)
 	if distance_to_player < ATTACK_RANGE2:
 		shot_sound_2.play()
 		state = EnemyState.ATTACKING2
-	elif distance_to_player < ATTACK_RANGE and distance_to_player > 150:
+	elif distance_to_player < rangeAttack and distance_to_player > 150:
 		shot_sound.play()
 		state = EnemyState.ATTACKING
 
