@@ -448,9 +448,7 @@ texture_filter = 1
 position = Vector2(2.28286e-05, -1.90735e-05)
 scale = Vector2(1.055, 1.259)
 sprite_frames = SubResource("SpriteFrames_ssqu6")
-animation = &"dying"
-frame = 5
-frame_progress = 1.0
+animation = &"idle"
 
 [node name="worldCollision" type="CollisionShape2D" parent="."]
 visible = false
